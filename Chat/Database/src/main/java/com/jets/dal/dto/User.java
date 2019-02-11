@@ -1,10 +1,11 @@
 package com.jets.dal.dto;
 
-import com.jets.exeption.InvalidInputException;
+import com.jets.exception.InvalidInputException;
 import java.util.Date;
 
 /**
 DTO for User table (incomplete)
+@author Mohamed Ali
 */
 public class User {
     private String name;
@@ -110,10 +111,6 @@ public class User {
 
     public String getPhoneNumber() {
         return phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }    
+    }   
     
 }

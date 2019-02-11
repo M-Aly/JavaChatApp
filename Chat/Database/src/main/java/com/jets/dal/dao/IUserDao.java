@@ -9,19 +9,9 @@ CRUD operations for User table
 */
 public interface IUserDao{
     /**
-    INSERT friend after login
+    INSERT new user
     */
-    void persist(User friend);
-
-    /**
-    INSERT new user after register
-    */
-    void persistNewUser(User newUser);
-
-    /**
-    SELECT all friends
-    */
-    List<User> retrieveAllFriends();
+    void persist(User newUser);
 
     /**
     search by phone number
@@ -32,16 +22,11 @@ public interface IUserDao{
     search by name
     it is not the primary key so it returns a list
     */
-    List<User> retrieveByName();
+    List<User> retrieveByName(String name);
 
     /**
     update the current user
     it is read if the id matches the id in a user retrieved
     */
     void update(User currentUser);
-
-    /**
-    delete a friend
-    */
-    void delete(User friend);
 }

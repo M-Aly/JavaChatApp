@@ -17,12 +17,4 @@ public class UserDao implements IUserDao{
     */
     public void persist(User newUser){
     }
-
-    /**
-    SELECT USER
-    */
-    public List<User> retrieveAllFriends(){
-        //SELECT FRIEND WHERE USER=this.user
-        return null;
-    }
 }
