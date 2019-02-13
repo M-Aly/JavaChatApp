@@ -1,7 +1,9 @@
 package com.jets.dal.dao;
 
 import java.util.List;
+import com.jets.dal.dto.Friend;
 import com.jets.dal.dto.User;
+import java.sql.SQLException;
 
 /**
 CRUD operations for Friends table
@@ -11,7 +13,7 @@ public interface IFriendsDao{
     /**
     INSERT new friend
     */
-    void persist(User friend);
+    void persist(Friend friend) throws SQLException;
 
     /**
     SELECT all friends
@@ -26,5 +28,10 @@ public interface IFriendsDao{
     /**
     delete a friend by his phone number
     */
-    void delete(int phoneNumber);
+    void delete(int friendPhoneNumber) throws SQLException;
+    
+    /**
+    delete a friend by his phone number
+    */
+    void update(Friend friend) throws SQLException;
 }

@@ -5,6 +5,5 @@ package com.jets.dal.dto.enums;
 */
 public enum InvitationStatus {
     PENDING,
-    ACCEPTED,
-    REJECTED
+    ACCEPTED
 }

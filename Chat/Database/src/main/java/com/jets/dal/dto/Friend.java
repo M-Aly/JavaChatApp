@@ -10,10 +10,12 @@ public class Friend {
     private int userPhoneNumber;
     private int friendPhoneNumber;
     private InvitationStatus invitationStatus;
+    private User friend;
 
-    public Friend(int userPhoneNumber, int friendPhoneNumber, InvitationStatus invitationStatus) {
+    public Friend(User friend, int userPhoneNumber, int friendPhoneNumber, InvitationStatus invitationStatus) {
         this.userPhoneNumber = userPhoneNumber;
         this.friendPhoneNumber = friendPhoneNumber;
+        this.invitationStatus = invitationStatus;
         this.invitationStatus = invitationStatus;
     }
 

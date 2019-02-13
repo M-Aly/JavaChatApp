@@ -176,7 +176,7 @@ public class User {
     }   
     
     public void setPhoneNumber(String phoneNumber) throws InvalidInputException {
-        if(password.length()>10 && password.length()<15){
+        if(phoneNumber.length()>10 && phoneNumber.length()<15){
             this.phoneNumber=phoneNumber;
         }
         else{
