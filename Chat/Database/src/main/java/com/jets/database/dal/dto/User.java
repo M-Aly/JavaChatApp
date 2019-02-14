@@ -1,8 +1,9 @@
-package com.jets.dal.dto;
+package com.jets.database.dal.dto;
 
-import com.jets.dal.dto.enums.Country;
-import com.jets.exception.InvalidInputException;
-import com.jets.dal.dto.enums.UserStatus;
+import com.jets.database.dal.dto.enums.Country;
+import com.jets.database.exception.InvalidInputException;
+import com.jets.database.dal.dto.enums.UserStatus;
+import com.jets.database.exception.InvalidDTOException;
 import java.sql.Date;
 
 /**
@@ -17,9 +18,11 @@ public class User {
     private Date dateOfBirth;
     private char gender;
     private UserStatus status;
-    private byte[] picture; //can change later
+    private byte[] picture;
     private String bio;
     private String phoneNumber;
+    
+    private boolean passwordFlag=true;
 
     public User(String name, String password, String email, Country country, Date dateOfBirth, char gender, UserStatus status, byte[] picture, String bio, String phoneNumber) throws InvalidInputException {
         StringBuilder errors=new StringBuilder("");
@@ -86,12 +89,21 @@ public class User {
             throw new InvalidInputException("name must be between 8 and 30 characters");
         }
     }
-
-    public String getPassword() {
-        return password;
+    
+    public String getPassword(){
+        if(passwordFlag){
+            return password;
+        }
+        else{
+            throw new InvalidDTOException("you can not get the password from the server");
+        }
     }
 
     public void setPassword(String password) throws InvalidInputException {
+        if(password.equals("")){
+            passwordFlag=false;
+            return;
+        }
         if(password.length()>8 && password.length()<30){
             this.password = password;
         }

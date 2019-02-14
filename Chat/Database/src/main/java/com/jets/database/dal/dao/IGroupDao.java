@@ -1,7 +1,7 @@
-package com.jets.dal.dao;
+package com.jets.database.dal.dao;
 
 import java.util.List;
-import com.jets.dal.dto.Group;
+import com.jets.database.dal.dto.Group;
 import java.sql.SQLException;
 
 /**
@@ -30,7 +30,7 @@ public interface IGroupDao{
     void update(Group group) throws SQLException;
 
     /**
-    delete a friend
+    delete a group
     */
     void delete(int groupId) throws SQLException;
 }

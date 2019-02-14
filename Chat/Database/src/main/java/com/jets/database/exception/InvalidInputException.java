@@ -1,4 +1,4 @@
-package com.jets.exception;
+package com.jets.database.exception;
 
 /**
 thrown when validation of input is invalid

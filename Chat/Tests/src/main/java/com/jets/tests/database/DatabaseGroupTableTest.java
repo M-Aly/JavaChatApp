@@ -1,6 +1,6 @@
 package com.jets.tests.database;
 
-import com.jets.dal.dao.IGroupDao;
+import com.jets.database.dal.dao.IGroupDao;
 
 /**
  *

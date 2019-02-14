@@ -5,13 +5,13 @@ import java.rmi.RemoteException;
 import com.jets.network.exception.NoSuchUserException;
 import com.jets.network.exception.StatusChangeFailedException;
 import com.jets.network.exception.UpdateUserFailedException;
-import com.jets.dal.dto.User;
+import com.jets.database.dal.dto.User;
 
 /**
  *
  * @author Mohamed Ali
  */
-public interface UserServiceInt extends Remote {
+public interface IntroduceUserInt extends Remote {
     /**
     persist user
     */
@@ -26,14 +26,4 @@ public interface UserServiceInt extends Remote {
     update status to offline and callback online friends
     */
     void signOut(User user) throws RemoteException,StatusChangeFailedException;
-    
-    /**
-    update profile in database
-    */
-    void updateProfile(User user) throws RemoteException,UpdateUserFailedException;
-    
-    /**
-    search user by phone number or name
-    */
-    User searchUser(String search) throws RemoteException;
 }

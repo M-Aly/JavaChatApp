@@ -1,8 +1,8 @@
-package com.jets.dal.dao;
+package com.jets.database.dal.dao;
 
 import java.util.List;
-import com.jets.dal.dto.Friend;
-import com.jets.dal.dto.User;
+import com.jets.database.dal.dto.Friend;
+import com.jets.database.dal.dto.User;
 import java.sql.SQLException;
 
 /**
@@ -18,17 +18,17 @@ public interface IFriendsDao{
     /**
     SELECT all friends
     */
-    List<User> retrieveAllFriends();
+    List<Friend> retrieveAllFriends();
 
     /**
     search by friend name
     */
-    List<User> retrieveByName(String name);
+    List<Friend> retrieveByName(String name);
 
     /**
     delete a friend by his phone number
     */
-    void delete(int friendPhoneNumber) throws SQLException;
+    void delete(String friendPhoneNumber) throws SQLException;
     
     /**
     delete a friend by his phone number

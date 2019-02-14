@@ -1,4 +1,4 @@
-package com.jets.dal.dto.enums;
+package com.jets.database.dal.dto.enums;
 
 /**
 @author M. ALI

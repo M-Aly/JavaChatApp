@@ -1,11 +1,12 @@
-package com.jets.dal.dao;
+package com.jets.database.dal.dao;
 
 import java.util.List;
-import com.jets.dal.dto.User;
+import com.jets.database.dal.dto.User;
 import java.sql.SQLException;
 
 /**
 CRUD operations for User table
+no passwords are retrieved
 @author Mohamed Ali
 */
 public interface IUserDao{
@@ -26,9 +27,9 @@ public interface IUserDao{
     List<User> retrieveByName(String name);
     
     /**
-    validation of password
+    validation the user matches the database exactly
     */
-    boolean validatePassword(String password);
+    boolean validate(User user) throws SQLException;
 
     /**
     update the current user
