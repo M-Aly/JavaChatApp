@@ -36,6 +36,6 @@ public class ConnectionMySql implements IDatabaseConnection {
     
     @Override
     public Connection getConnection(){
-        return connection;
+        return connection;        
     }
 }
