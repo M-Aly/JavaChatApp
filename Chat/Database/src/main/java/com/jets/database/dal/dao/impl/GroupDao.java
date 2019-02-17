@@ -53,7 +53,7 @@ public class GroupDao implements IGroupDao {
     @Override
     public void persist(Group group) {
     	
-    	String insertNewGroup = "INSERT INTO groub(groupName)" + " VALUES(" + group.getName()+")";
+    	String insertNewGroup = "INSERT INTO group(groupName)" + " VALUES(" + group.getName()+")";
     	
         if (statement != null) {
         	try {
@@ -115,15 +115,14 @@ public class GroupDao implements IGroupDao {
     public void update(Group group) throws SQLException {
     	
         String updateGroupName =
-        "UPDATE groub SET groupName =" + group.getName()+ ")";
+        "UPDATE groub SET groupName =" + group.getName()+ " WHERE groupid= "+group.getGroupId();
         statement.addBatch(updateGroupName);
         
         String updateGroupPhone;       
         Set setFriend = group.getFriends();
-        for(Friend  friends:group.getFriends() ) {
+        for(Friend  friend:group.getFriends() ) {
         	updateGroupPhone =
-                    "UPDATE group_user SET phoneNumber =" + friends.getPhoneNumber()+")";
-        
+                    "UPDATE group_user SET phoneNumber =" + friend.getPhoneNumber()+" WHERE WHERE groupId= [SELECT groupid from group WHERE groupid =" +group.getGroupId()+"]";        
         	statement.addBatch(updateGroupPhone);
         }
         statement.executeBatch();
@@ -133,7 +132,7 @@ public class GroupDao implements IGroupDao {
 
     @Override
     public void delete(int groupId) throws SQLException {
-        String deleteGroup = "DELETE FROM groub where groubid=groupId";
+        String deleteGroup = "DELETE FROM group where groubid="+ groupId;
         if (statement != null) {
             result = statement.executeQuery(deleteGroup);
             commit();

@@ -17,7 +17,7 @@ import javafx.scene.layout.VBox;
 /**
  * FXML Controller class
  *
- * @author lapshop
+ * @author Zainab
  */
 public class ListFriendController implements Initializable {
 
@@ -37,7 +37,7 @@ public class ListFriendController implements Initializable {
 
     public void loadNotification() {
         for (int i = 0; i <7; i++) {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("FXMLItemRequestNotification.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/requestNotification/FXMLItemRequestNotification.fxml"));
             try {
                 itemListView = fxmlLoader.load();
                 listNotification.getItems().add(itemListView);

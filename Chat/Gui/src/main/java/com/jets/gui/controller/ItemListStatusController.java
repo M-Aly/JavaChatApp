@@ -14,7 +14,7 @@ import javafx.scene.control.Label;
 /**
  * FXML Controller class
  *
- * @author lapshop
+ * @author Zainab
  */
 
 

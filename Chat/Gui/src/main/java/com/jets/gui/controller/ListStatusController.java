@@ -20,7 +20,7 @@ import javafx.scene.text.Text;
 /**
  * FXML Controller class
  *
- * @author lapshop
+ * @author zainab
  */
 public class ListStatusController implements Initializable {
 

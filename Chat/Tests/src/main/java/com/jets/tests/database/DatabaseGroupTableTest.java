@@ -22,26 +22,27 @@ public class DatabaseGroupTableTest {
     public static void main(String[] args) throws SQLException {
         System.out.println("Not yet done");
         User testUser = null;
-        try {
-            testUser = new User(
-                    "Zainab Ashour",
-                    "123456789",
-                    "eee@gmail.com",
-                    Country.Albania,
-                    new Date(2010, 11, 1),
-                    'F',
-                    UserStatus.OFFLINE,
-                    null,
-                    "hello !",
-                    "+20000000000");
-        } catch (InvalidInputException ex) {
-            ex.printStackTrace();
-        }
+//        try {
+//            testUser = new User(
+//                    "1234567800",
+//                    "Zainab Ashour",
+//                    Country.Albania,
+//                    "+20000000000",
+//                    "false",
+//                    UserStatus.OFFLINE,
+//                    null,
+//                    "Hello",
+//                    'F',            
+//                    new Date(2010, 11, 1),
+//                    "ZaianbAshour33@gmail.com"
+//                    );
+//        } catch (InvalidInputException ex) {
+//            ex.printStackTrace();
+//        }
         GroupDao groupDao = new GroupDao(testUser);
         
         Group group = new Group(1,"friendGroup");
-        
-          
+                  
         groupDao.persist(group);
         
        System.out.println("insert new Group...."); 
