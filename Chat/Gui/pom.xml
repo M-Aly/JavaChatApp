@@ -15,4 +15,15 @@
         <artifactId>Chat</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
+    <!-- https://mvnrepository.com/artifact/org.controlsfx/controlsfx -->
+    <dependencies>
+	    <dependency>
+		    <groupId>org.controlsfx</groupId>
+		    <artifactId>controlsfx</artifactId>
+		    <version>8.40.14</version>
+		</dependency>
+		
+	</dependencies>
+	
+    
 </project>

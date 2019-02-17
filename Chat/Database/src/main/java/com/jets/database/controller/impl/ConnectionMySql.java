@@ -14,15 +14,15 @@ import java.util.logging.Logger;
 public class ConnectionMySql implements IDatabaseConnection {
     private static ConnectionMySql databaseConnection;
     private Connection connection;
-    private static final String MYSQL_URL="jdbc:mysql://localhost:3306/";
-    private static final String DATABASE_NAME="chatdatabase";
+    private static final String MYSQL_URL="jdbc:mysql://localhost:3333/chatdatabase";
+    //private static final String DATABASE_NAME="chatdatabase";
     private static final String USER_NAME="root";
-    private static final String PASSWORD="";
+    private static final String PASSWORD="mysql";
     
     private ConnectionMySql(){
         try {
             DriverManager.registerDriver(new com.mysql.cj.jdbc.Driver());
-            connection=DriverManager.getConnection(MYSQL_URL+DATABASE_NAME, USER_NAME, PASSWORD);
+            connection=DriverManager.getConnection(MYSQL_URL, USER_NAME, PASSWORD);
         } catch (SQLException ex) {
             Logger.getLogger(ConnectionMySql.class.getName()).log(Level.SEVERE, null, ex);
         }

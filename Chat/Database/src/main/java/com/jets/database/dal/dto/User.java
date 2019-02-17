@@ -4,13 +4,16 @@ import com.jets.database.dal.dto.enums.Country;
 import com.jets.database.exception.InvalidInputException;
 import com.jets.database.dal.dto.enums.UserStatus;
 import com.jets.database.exception.InvalidDTOException;
+
+import java.io.Serializable;
 import java.sql.Date;
 
 /**
-DTO for User table
-@author Mohamed Ali
-*/
-public class User {
+ * DTO for User table
+ * 
+ * @author Mohamed Ali
+ */
+public class User implements Serializable{
     private String name;
     private String password;
     private String email;
@@ -24,7 +27,20 @@ public class User {
     
     private boolean passwordFlag=true;
 
-    public User(String name, String password, String email, Country country, Date dateOfBirth, char gender, UserStatus status, byte[] picture, String bio, String phoneNumber) throws InvalidInputException {
+    public User(
+            String phoneNumber,
+            String name, 
+             Country country,
+            String password, 
+            boolean passwordFlag,
+            UserStatus status,
+            byte[] picture,
+            String bio ,
+            char gender,
+            Date dateOfBirth,
+            String email     
+            
+    ) throws InvalidInputException {
         StringBuilder errors=new StringBuilder("");
         try{
             setName(name);
@@ -40,6 +56,7 @@ public class User {
             errors.append(exception.getMessage());
             errors.append("\n");
         }
+        
         try{
             setEmail(email);
         }
@@ -65,6 +82,7 @@ public class User {
         setStatus(status);
         setPicture(picture);
         setBio(bio);
+        setPasswordFlag(passwordFlag);
         try{
             setPhoneNumber(phoneNumber);
         }
@@ -75,6 +93,16 @@ public class User {
         String appendedErrors=errors.toString();
         if(!appendedErrors.equals(""))
             throw new InvalidInputException(appendedErrors);
+        
+        
+    }
+
+    public boolean isPasswordFlag() {
+        return passwordFlag;
+    }
+
+    public void setPasswordFlag(boolean passwordFlag) {
+        this.passwordFlag = passwordFlag;
     }
 
     public String getName() {
@@ -82,7 +110,7 @@ public class User {
     }
 
     public void setName(String name) throws InvalidInputException {
-        if(name.length()>8 && name.length()<30){
+        if(name.length()>=8 && name.length()<30){
             this.name = name;
         }
         else{
@@ -104,7 +132,7 @@ public class User {
             passwordFlag=false;
             return;
         }
-        if(password.length()>8 && password.length()<30){
+        if(password.length()>=8 && password.length()<30){
             this.password = password;
         }
         else{
@@ -188,11 +216,11 @@ public class User {
     }   
     
     public void setPhoneNumber(String phoneNumber) throws InvalidInputException {
-        if(phoneNumber.length()>10 && phoneNumber.length()<15){
+        if(phoneNumber.length()>=10 && phoneNumber.length()<15){
             this.phoneNumber=phoneNumber;
         }
         else{
-            throw new InvalidInputException("phone number must be 10 and 15 characters");
+            throw new InvalidInputException("phone number must be between 10 and 15 characters");
         }
     }
     

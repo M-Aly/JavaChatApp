@@ -3,7 +3,6 @@ package com.jets.database.dal.dto;
 import com.jets.database.dal.dto.enums.Country;
 import com.jets.database.dal.dto.enums.InvitationStatus;
 import com.jets.database.dal.dto.enums.UserStatus;
-import com.jets.database.exception.InvalidInputException;
 import java.sql.Date;
 
 /**
@@ -15,7 +14,7 @@ public class Friend {
     private User friend;
 
     public Friend(User friend, InvitationStatus invitationStatus) {
-        this.invitationStatus = invitationStatus;
+        this.friend = friend;
         this.invitationStatus = invitationStatus;
     }
 
