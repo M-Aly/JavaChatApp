@@ -13,10 +13,11 @@ public interface IGroupDao{
     INSERT new group
     */
     void persist(Group group) throws SQLException;
-
+    
     /**
     SELECT all groups the current user has
     */
+    
     List<Group> retrieveAllGroups();
 
     /**
@@ -28,9 +29,11 @@ public interface IGroupDao{
     update group
     */
     void update(Group group) throws SQLException;
+    
 
     /**
     delete a group
     */
     void delete(int groupId) throws SQLException;
+
 }
