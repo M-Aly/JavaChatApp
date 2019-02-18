@@ -13,12 +13,12 @@ public interface IFriendsDao{
     /**
     INSERT new friend
     */
-    void persist(String userPhoneNumber,Friend friend) throws SQLException;
+    void persist(Friend friend) throws SQLException;
 
     /**
     SELECT all friends
     */
-    List<Friend> retrieveAllFriends(String phoneString);
+    List<Friend> retrieveAllFriends();
 
     /**
     search by friend name
@@ -28,10 +28,10 @@ public interface IFriendsDao{
     /**
     delete a friend by his phone number
     */
-    void delete(String userPhoneNumber ,String friendphone) throws SQLException;
+    void delete(String friendphone) throws SQLException;
     
     /**
-    delete a friend by his phone number
+    update a friend by his phone number
     */
-    void update(String phonenumber,Friend friend) throws SQLException;
+    void update(Friend friend) throws SQLException;
 }

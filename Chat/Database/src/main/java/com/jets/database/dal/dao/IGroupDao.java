@@ -17,7 +17,6 @@ public interface IGroupDao{
     /**
     SELECT all groups the current user has
     */
-    
     List<Group> retrieveAllGroups();
 
     /**

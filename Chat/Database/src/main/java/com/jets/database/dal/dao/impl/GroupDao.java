@@ -1,141 +1,188 @@
 package com.jets.database.dal.dao.impl;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
 import com.jets.database.controller.impl.ConnectionMySql;
 import com.jets.database.dal.dao.IGroupDao;
-import com.jets.database.dal.dto.Friend;
 import com.jets.database.dal.dto.Group;
-import com.jets.database.dal.dto.User;
 import com.jets.database.exception.InvalidInputException;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
+ * @author Mohamed Ali
  * @author Zainab
  */
 public class GroupDao implements IGroupDao {
 
     private Connection connection;
     private Statement statement;
-    private User user;
-    private List<Group> listGroup;
-    private ResultSet result;
+    private String userPhoneNumber;
     
 
-    public GroupDao(User user) {
-    	 connection = ConnectionMySql.getInstance().getConnection();
-    	 
-    	 List<Group> listGroup = new ArrayList<>();
-        this.user = user;
-        try {
-        	connection.setAutoCommit(false);
-        	statement=connection.createStatement();
-        	
-        } catch (SQLException ex) {
-            Logger.getLogger(GroupDao.class.getName()).log(Level.SEVERE, null, ex);
-        }
+    public GroupDao(String userPhoneNumber) throws SQLException {
+    	connection=ConnectionMySql.getInstance().getConnection();
+        this.userPhoneNumber = userPhoneNumber;
     }
 
     @Override
-    public void persist(Group group) {
-    	
-    	String insertNewGroup = "INSERT INTO group(groupName)" + " VALUES(" + group.getName()+")";
-    	
-        if (statement != null) {
-        	try {
-                statement.executeUpdate(insertNewGroup);
-                commit();
-            } catch (SQLException ex) {
-                Logger.getLogger(GroupDao.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            
-        } 
+    public void persist(Group group) throws SQLException {
+		Statement retrieveGroupStatement=null;
+		ResultSet retrieveGroupResultSet=null;
+    	try {
+			statement=connection.createStatement();
+			if(statement!=null) {
+				String insertNewGroup = "INSERT INTO chat_database.group(groupName,userPhoneNumber)" + " VALUES('"+group.getName()+"','"+userPhoneNumber+"')";
+				
+				connection.setAutoCommit(false);
+				statement.execute(insertNewGroup);
+			    String retrieveGroup="SELECT groupId FROM chat_database.group WHERE userPhoneNumber='"+userPhoneNumber+"' AND groupName='"+group.getName()+"' AND groupId NOT IN (SELECT groupId FROM chat_database.group_friend)";
+			    retrieveGroupStatement=connection.createStatement();
+				if(retrieveGroupStatement!=null) {
+			    	retrieveGroupResultSet=retrieveGroupStatement.executeQuery(retrieveGroup);
+			    	boolean haveGroup=retrieveGroupResultSet.first();
+			    	if(haveGroup) {
+			    		int groupId=retrieveGroupResultSet.getInt(1);
+			        	String persistGroupPhone =
+			                    "INSERT INTO chat_database.group_friend(groupId,friendPhoneNumber) VALUES (" + groupId+",'"+userPhoneNumber+"');";
+			        	statement.addBatch(persistGroupPhone);
+			    	}
+			    	else {
+			    		throw new SQLException("failed to execute");
+			    	}
+			    	statement.executeBatch();
+			    	connection.commit();
+				}
+				else {
+					throw new SQLException("failed to execute");
+				}
+			}
+			else {
+				throw new SQLException("failed to execute");
+			}
+		}
+    	finally {
+    		close();
+    		try {
+				if(retrieveGroupResultSet!=null) {
+					retrieveGroupResultSet.close();
+				}
+				if(retrieveGroupStatement!=null) {
+					retrieveGroupStatement.close();
+				}
+			} catch (SQLException ex) {
+				ex.printStackTrace();
+			}
+    	}
     }
     
-    @Override
-    public List<Group> retrieveAllGroups() {
-        String retrieveGroups = "SELECT * FROM group_user where phoneNumber=" + user.getPhoneNumber();
-        if (statement != null) {
-            try {
-                result = statement.executeQuery(retrieveGroups);
-                commit();
-                while (result.next()) {
-                    listGroup.add(new Group(result.getInt(1), result.getString(0)));
-                }
-            } catch (SQLException ex) {
-                return null;
-            }
-        }
-        return listGroup;
-    }
     
-    // try using retriveFriend and complete logic of retrieveByName and retrieveAllGroups
-
-    @Override
-    public List<Group> retrieveByName(String name) {
-    	Group group;
-    	Friend friend;
-
-        String retrieveByNameQuery = "SELECT u.phoneNumber"
-                + " FROM group_user u JOIN groub g ON g.groupId = u.groupId WHERE"
-                +" g.groupName LIKE " + name + "%";
-        if (statement != null) {
-            try {
-                result = statement.executeQuery(retrieveByNameQuery);
-                commit();
-                while (result.next()) {
-                	group=new Group(result.getInt(1), result.getString(2));
-                //	friend= retriveFriend(Group group);
-                //	group.addFriend(friend);
-                    listGroup.add(group);
-                    
-                }
-            } catch (SQLException ex) {
-                return null;
-            }
-        }
-        return listGroup;
-    }
 
     @Override
     public void update(Group group) throws SQLException {
     	
-        String updateGroupName =
-        "UPDATE groub SET groupName =" + group.getName()+ " WHERE groupid= "+group.getGroupId();
-        statement.addBatch(updateGroupName);
-        
-        String updateGroupPhone;       
-        Set setFriend = group.getFriends();
-        for(Friend  friend:group.getFriends() ) {
-        	updateGroupPhone =
-                    "UPDATE group_user SET phoneNumber =" + friend.getPhoneNumber()+" WHERE WHERE groupId= [SELECT groupid from group WHERE groupid =" +group.getGroupId()+"]";        
-        	statement.addBatch(updateGroupPhone);
-        }
-        statement.executeBatch();
-        commit();
-   
+    	Statement retrieveFriendsStatement=null;
+    	ResultSet retrieveFriendsResultSet=null;
+        try {
+			String updateGroupName =
+			"UPDATE chat_database.group SET groupName ='" + group.getName()+ "' WHERE groupid= "+group.getGroupId()+" AND userPhoneNumber='"+userPhoneNumber+"'";
+			statement=connection.createStatement();
+			if(statement!=null) {
+				connection.setAutoCommit(false);
+				statement.addBatch(updateGroupName);
+			    
+			    String updateGroupPhone;
+			    String retrieveFriend="SELECT friendPhoneNumber FROM chat_database.group_friend WHERE groupId="+group.getGroupId();
+			    retrieveFriendsStatement=connection.createStatement();
+			    retrieveFriendsResultSet=retrieveFriendsStatement.executeQuery(retrieveFriend);
+			    if(retrieveFriendsResultSet!=null) {
+			    	Set<String> friendsCopy=new HashSet<>();
+			    	for(String friendPhoneNumber:group.getFriends()) {
+			    		friendsCopy.add(friendPhoneNumber);
+			    	}
+			    	while(retrieveFriendsResultSet.next()) {
+			    		String friendPhoneNumber=retrieveFriendsResultSet.getString(1);
+			    		boolean haveFriend=false;
+			    		Iterator<String> friendIterator=friendsCopy.iterator();
+			    		while(friendIterator.hasNext() && !haveFriend) {
+			    			String friend=friendIterator.next();
+				    		if(friend.equals(friendPhoneNumber)) {
+				    			haveFriend=true;
+				    			friendsCopy.remove(friend);
+				    		}
+			    		}
+			    		if(!haveFriend) {
+				        	updateGroupPhone =
+				                    "INSERT INTO chat_database.group_friend(groupId,friendPhoneNumber) VALUES (" + group.getGroupId()+",'"+friendPhoneNumber+"')";
+				    	}
+			    		else {
+			    			updateGroupPhone="UPDATE chat_database.group_friend SET friendPhoneNumber='"+friendPhoneNumber+"' WHERE groupId="+group.getGroupId();
+			    		}
+			    		statement.addBatch(updateGroupPhone);
+				    }
+			    	for(String friendPhoneNumber:friendsCopy) {
+			    		updateGroupPhone="DELETE FROM chat_database.group_friend WHERE friendPhoneNumber='"+friendPhoneNumber+"' AND groupId="+group.getGroupId();
+			    		statement.addBatch(updateGroupPhone);
+			    	}
+			    }
+			    else {
+			    	throw new SQLException("failed to execute");
+			    }
+			    statement.executeBatch();
+		    	connection.commit();
+			}
+			else {
+				throw new SQLException("failed to execute");
+			}
+		}
+        finally {
+        	close();
+        	try {
+        		if(retrieveFriendsResultSet!=null) {
+        			retrieveFriendsResultSet.close();
+        		}
+        	}
+        	catch(SQLException ex) {
+        		ex.printStackTrace();
+        	}
+        	try {
+        		if(retrieveFriendsStatement!=null) {
+        			retrieveFriendsStatement.close();
+        		}
+        	}
+        	catch(SQLException ex) {
+        		ex.printStackTrace();
+        	}
+		}
     }  
 
     @Override
     public void delete(int groupId) throws SQLException {
-        String deleteGroup = "DELETE FROM group where groubid="+ groupId;
-        if (statement != null) {
-            result = statement.executeQuery(deleteGroup);
-            commit();
+        try {
+			statement=connection.createStatement();
+			String deleteFriends = "DELETE FROM chat_database.group_friend WHERE groupId="+ groupId;
+			if(statement!=null) {
+				connection.setAutoCommit(true);
+				statement.execute(deleteFriends);
+				String deleteGroup = "DELETE FROM chat_database.group WHERE groupId="+groupId;
+				statement.execute(deleteGroup);
+			}
+			else {
+				throw new SQLException("failed to execute");
+			}
+		}
+        finally {
+        	close();
         }
     }
 
@@ -145,34 +192,77 @@ public class GroupDao implements IGroupDao {
                 statement.close();
                 
             } catch (SQLException ex) {
-                Logger.getLogger(GroupDao.class.getName()).log(Level.SEVERE, null, ex);
+            	ex.printStackTrace();
             }
         }
    }
     
-//    public void retriveFriend(Group group){
-//        String x="SELECT u.phoneNumber FROM group_user u JOIN groub g ON g.groupId = u.groupId WHERE groupName = "+group.getName()+")"; 
-//        try {
-//            result = statement.executeQuery(x);
-//           // Friend f= new Friend(user, InvitationStatus.PENDING);
-//           // f.setPhone(result.getString(1));    
-//           // result.getString(1);            
-//            while(result.next()){
-//             // group.addFriend(new Friend());  
-//            }
-//            
-//        } catch (SQLException ex) {
-//            Logger.getLogger(GroupDao.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//        
-//    }
+    @Override
+	public List<Group> retrieveByName(String name) {
+		List<Group> groupList = new ArrayList<>();
+        ResultSet retrieveByNameResultSet=null;
+        String retrieveByNameQuery = "SELECT g.groupId,g.groupName,g.userPhoneNumber,gf.friendPhoneNumber FROM chat_database.group g JOIN chat_database.group_friend gf ON g.groupId = gf.groupId WHERE g.groupName LIKE '%"+name+"%'";
+        Statement retrieveByNameStatement=null;
+        try {
+            retrieveByNameStatement = connection.createStatement();
+            retrieveByNameResultSet = retrieveByNameStatement.executeQuery(retrieveByNameQuery);
+            while(retrieveByNameResultSet.next()) {
+            	int groupId=retrieveByNameResultSet.getInt(1);
+            	Iterator<Group> groupIterator=groupList.iterator();
+            	boolean found=false;
+            	while(groupIterator.hasNext() && !found) {
+            		Group group=groupIterator.next();
+            		if(group.getGroupId()==groupId) {
+            			String friendPhoneNumber=retrieveByNameResultSet.getString(4);
+            			group.addFriend(friendPhoneNumber);
+            			found=true;
+            		}
+            	}
+            	if(!found) {
+            		String groupName=retrieveByNameResultSet.getString(2);
+            		String userPhoneNumber=retrieveByNameResultSet.getString(3);
+            		Group group=new Group(groupId,groupName,userPhoneNumber);
+            		String friendPhoneNumber=retrieveByNameResultSet.getString(4);
+        			group.addFriend(friendPhoneNumber);
+        			groupList.add(group);
+            	}
+            }
+        }
+        catch (SQLException ex) {
+        	ex.printStackTrace();
+            groupList=null;
+        }
+        catch (InvalidInputException ex) {
+        	ex.printStackTrace();
+            groupList=null;
+        }
+        finally {
+        	close();
+        	try {
+        		if(retrieveByNameResultSet!=null) {
+        			retrieveByNameResultSet.close();
+        		}
+        	}
+        	catch(SQLException ex) {
+        		ex.printStackTrace();
+        	}
+        	try {
+        		if(retrieveByNameStatement!=null) {
+        			retrieveByNameStatement.close();
+        		}
+        	}
+        	catch(SQLException ex) {
+        		ex.printStackTrace();
+        	}
+        }
+        return groupList;
+	}
+
+	@Override
+	public List<Group> retrieveAllGroups() {
+		return retrieveByName("");
+	}
+
     
-    public void commit() {
-    	try {
-			connection.commit();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-    }
+
 }

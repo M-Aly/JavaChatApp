@@ -1,31 +1,43 @@
 package com.jets.database.controller.impl;
 
 import com.jets.database.controller.IDatabaseConnection;
+
+import java.io.FileReader;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.Properties;
 
 /**
- *
+ * get a connection to mysql database
  * @author Mohamed Ali
  */
 public class ConnectionMySql implements IDatabaseConnection {
     private static ConnectionMySql databaseConnection;
     private Connection connection;
-    private static final String MYSQL_URL="jdbc:mysql://localhost:3333/chatdatabase";
-    //private static final String DATABASE_NAME="chatdatabase";
-    private static final String USER_NAME="root";
-    private static final String PASSWORD="mysql";
+    private static final String URL="MYSQL_URL";
+    private static final String DATABASE="DATABASE_NAME";
+    private static final String USER="USER_NAME";
+    private static final String PASSWORD="PASSWORD";
+    private static final String FILE="/mysql.properties";
     
     private ConnectionMySql(){
-        try {
+    	try {
+    		Properties properties=new Properties();
+        	properties.load(new FileReader(FILE));
+        	String mysqlUrl=properties.getProperty(URL)+properties.getProperty(DATABASE);
+        	String user=properties.getProperty(USER);
+        	String password=properties.getProperty(PASSWORD);
             DriverManager.registerDriver(new com.mysql.cj.jdbc.Driver());
-            connection=DriverManager.getConnection(MYSQL_URL, USER_NAME, PASSWORD);
-        } catch (SQLException ex) {
-            Logger.getLogger(ConnectionMySql.class.getName()).log(Level.SEVERE, null, ex);
+            connection=DriverManager.getConnection(mysqlUrl,user,password);
         }
+    	catch (IOException ex) {
+    		ex.printStackTrace();
+    	}
+    	catch (SQLException ex) {
+    		ex.printStackTrace();
+    	}
     }
     
     public synchronized static ConnectionMySql getInstance(){
@@ -36,6 +48,19 @@ public class ConnectionMySql implements IDatabaseConnection {
     
     @Override
     public Connection getConnection(){
-        return connection;        
+    	setAutoCommit(true);
+        return connection;
     }
+
+	@Override
+	public void setAutoCommit(boolean autoCommit) {
+		try {
+			connection.setAutoCommit(autoCommit);
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+    
+    
 }

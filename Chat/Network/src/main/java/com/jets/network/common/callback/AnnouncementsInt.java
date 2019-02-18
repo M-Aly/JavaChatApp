@@ -20,7 +20,7 @@ public interface AnnouncementsInt extends Remote {
     void unObserve(String phoneNumber) throws RemoteException,NoSuchUserException;
     
     /**
-    
+    when the server admin sends an announcement
     */
     void getAnnouncement(String announcement) throws RemoteException;
 }

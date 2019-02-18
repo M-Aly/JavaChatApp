@@ -21,11 +21,11 @@ import java.util.List;
  */
 public class FriendsDao implements IFriendsDao {
 
-    private User friends;
+    private User user;
     private Connection connection;
 
-    public FriendsDao(User friends) {
-        this.friends = friends;
+    public FriendsDao(User user) {
+        this.user = user;
         connection = ConnectionMySql.getInstance().getConnection();
     }
 
@@ -33,11 +33,11 @@ public class FriendsDao implements IFriendsDao {
      * INSERT new friend
      */
     @Override
-    public void persist(String userPhoneNumber,Friend friend) throws SQLException {
+    public void persist(Friend friend) throws SQLException {
     	Statement statement = null;
         try {
             String insertNewUserQuery =  "INSERT INTO user_friend (userphone,friendPhone,invitationState)"
-                    + " VALUES('" + userPhoneNumber + "','" + friend.getPhoneNumber() + "','" + InvitationStatus.PENDING + "')";
+                    + " VALUES('" + user.getPhoneNumber() + "','" + friend.getPhoneNumber() + "','" + InvitationStatus.PENDING + "')";
             statement = connection.createStatement();
             statement.executeUpdate(insertNewUserQuery);
         } finally {
@@ -53,12 +53,12 @@ public class FriendsDao implements IFriendsDao {
      * SELECT all friends
      */
     @Override
-    public List<Friend> retrieveAllFriends(String PhoneNumber) {
+    public List<Friend> retrieveAllFriends() {
         List<Friend> userList = new ArrayList<Friend>();
         ResultSet result;
         String retrieveByNameQuery = "SELECT u.phonenumber,u.name ,u.country, u.password ,u.changePassword ,u.statues,u.picture"
                 + ",u.bio,u.gender,u.birthofdate,u.email"
-                + ",f.invitationstate FROM user u JOIN user_friend f ON u.phonenumber = f.userphone where u.userphone='" + PhoneNumber +"'";
+                + ",f.invitationstate FROM user u JOIN user_friend f ON u.phonenumber = f.userphone where u.userphone='" + user.getPhoneNumber() +"'";
         
         Statement statement = null;
         try {
@@ -135,10 +135,10 @@ public class FriendsDao implements IFriendsDao {
      * delete a friend by his phone number
      */
     @Override
-    public void delete(String phoneNumber , String friendphone) throws SQLException {
+    public void delete(String friendphone) throws SQLException {
         Statement statement = null;
         try {
-            String deleteUserQuery = "DELETE FROM user_friend WHERE userphone = '"+phoneNumber+"' and friendphone ='"+friendphone+"'";
+            String deleteUserQuery = "DELETE FROM user_friend WHERE userphone = '"+user.getPhoneNumber()+"' and friendphone ='"+friendphone+"'";
             statement = connection.createStatement();
             statement.execute(deleteUserQuery);
         } finally {
@@ -151,10 +151,10 @@ public class FriendsDao implements IFriendsDao {
     }
 
     @Override
-    public void update(String phonenumber,Friend friend) throws SQLException {
+    public void update(Friend friend) throws SQLException {
         Statement statement = null;
         try {
-            String updateUserQuery = "UPDATE user_friend SET invitationstate='ACCEPTED' WHERE userphone = '"+phonenumber+"' and friendphone ='"+friend.getPhoneNumber()+"';";
+            String updateUserQuery = "UPDATE user_friend SET invitationstate='ACCEPTED' WHERE userphone = '"+user.getPhoneNumber()+"' and friendphone ='"+friend.getPhoneNumber()+"';";
 
             statement = connection.createStatement();
             statement.executeQuery(updateUserQuery);

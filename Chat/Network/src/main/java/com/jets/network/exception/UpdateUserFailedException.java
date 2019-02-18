@@ -1,7 +1,7 @@
 package com.jets.network.exception;
 
 /**
- *
+ * update user failure
  * @author Mohamed Ali
  */
 public class UpdateUserFailedException extends Exception {

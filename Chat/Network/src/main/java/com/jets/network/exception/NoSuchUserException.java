@@ -1,7 +1,7 @@
 package com.jets.network.exception;
 
 /**
- *
+ * the user is not found
  * @author Mohamed Ali
  */
 public class NoSuchUserException extends Exception {

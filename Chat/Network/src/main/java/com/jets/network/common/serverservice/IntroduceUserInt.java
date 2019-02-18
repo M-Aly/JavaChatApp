@@ -8,7 +8,9 @@ import com.jets.network.exception.UpdateUserFailedException;
 import com.jets.database.dal.dto.User;
 
 /**
- *
+ * log in
+ * register
+ * sign out
  * @author Mohamed Ali
  */
 public interface IntroduceUserInt extends Remote {

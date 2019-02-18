@@ -1,5 +1,6 @@
 package com.jets.network.common.serverservice;
 
+import com.jets.database.dal.dto.Friend;
 import com.jets.database.dal.dto.Group;
 import com.jets.database.dal.dto.User;
 import com.jets.database.dal.dto.enums.UserStatus;
@@ -9,7 +10,7 @@ import java.rmi.RemoteException;
 import java.util.List;
 
 /**
- *
+ * profile and status
  * @author Mohamed Ali
  */
 public interface UserSettingsInt extends Remote {
@@ -26,17 +27,17 @@ public interface UserSettingsInt extends Remote {
     /**
     add friend
     */
-    void addFriend(User user) throws RemoteException,UpdateUserFailedException;
+    void addFriend(Friend friend) throws RemoteException,UpdateUserFailedException;
     
     /**
     remove friend
     */
-    void removeFriend(User user) throws RemoteException,UpdateUserFailedException;
+    void removeFriend(Friend friend) throws RemoteException,UpdateUserFailedException;
     
     /**
     add friends
     */
-    void addFriends(List<User> friends) throws RemoteException,UpdateUserFailedException;
+    void addFriends(List<Friend> friends) throws RemoteException,UpdateUserFailedException;
     
     /**
     add group

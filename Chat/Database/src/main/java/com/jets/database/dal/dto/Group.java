@@ -1,6 +1,9 @@
 package com.jets.database.dal.dto;
 
 import com.jets.database.exception.InvalidDTOException;
+import com.jets.database.exception.InvalidInputException;
+
+import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -15,27 +18,30 @@ public class Group {
     private int groupId;
     
     private String name;
-    private Set<Friend> friends=new TreeSet<>();
+    private String userPhoneNumber;
+    private Set<String> friendPhoneNumbers=new TreeSet<>();
     private boolean groupSelectedFromDatabase;
 
     /**
     select from database
     */
-    public Group(int groupId, String name){
+    public Group(int groupId, String name, String userPhoneNumber) throws InvalidInputException {
         this.groupId = groupId;
         setName(name);
+        this.userPhoneNumber=userPhoneNumber;
         groupSelectedFromDatabase=true;
     }
     
     /**
     add group to database
     */
-    public Group(String name){
+    public Group(String name, String userPhoneNumber) throws InvalidInputException {
         setName(name);
+        this.userPhoneNumber=userPhoneNumber;
         groupSelectedFromDatabase=false;
     }
 
-    public int getGroupId(){
+    public int getGroupId() {
         if(groupSelectedFromDatabase){
             return groupId;
         }
@@ -48,25 +54,41 @@ public class Group {
         return name;
     }
 
-    public void setName(String name) {
-        if(name.length()>8 && name.length()<30){
+    public void setName(String name) throws InvalidInputException {
+        if(name.length()>=4 && name.length()<=30){
             this.name = name;
         }
         else{
-            throw new InvalidDTOException("name must be between 8 and 30 characters");
+            throw new InvalidInputException("name must be between 4 and 30 characters");
         }
     }
     
-    public void addFriend(Friend friend){
-        friends.add(friend);
+    public String getUserPhoneNumber() {
+		return userPhoneNumber;
+	}
+
+	public void setUserPhoneNumber(String userPhoneNumber) {
+		this.userPhoneNumber = userPhoneNumber;
+	}
+    
+    public void addFriend(String friendPhoneNumber){
+    	friendPhoneNumbers.add(friendPhoneNumber);
     }
     
-    public void removeFriend(Friend friend){
-        friends.remove(friends);
+    public void removeFriend(String friendPhoneNumber){
+    	friendPhoneNumbers.remove(friendPhoneNumber);
     }
     
-    public Set<Friend> getFriends(){
-        return friends;
+    public void addFriends(List<String> friendPhoneNumbers){
+    	this.friendPhoneNumbers.addAll(friendPhoneNumbers);
+    }
+    
+    public void removeFriends(List<String> friendPhoneNumbers){
+    	this.friendPhoneNumbers.removeAll(friendPhoneNumbers);
+    }
+    
+    public Set<String> getFriends(){
+        return friendPhoneNumbers;
     }
     
     

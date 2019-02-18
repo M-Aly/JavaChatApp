@@ -41,15 +41,16 @@ public class DatabaseUserTableTest{
             ex.printStackTrace();
         }
 
-        UserDao userDao = new UserDao((testUser));
-
-        /*    System.out.println("insert new user ....");
+        UserDao userDao = new UserDao();
+/*
+            System.out.println("insert new user ....");
         try {
             userDao.persist(testUser);
         } catch (SQLException ex) {
             ex.printStackTrace();
-        }*/
- /* System.out.println("new user is inserted ....");
+        }
+  System.out.println("new user is inserted ....");
+  */
         System.out.println("retrive user by name...");
         List<User> returnedUserByName = userDao.retrieveByName("mayada khaled");
         for (User item : returnedUserByName) {
@@ -57,17 +58,21 @@ public class DatabaseUserTableTest{
             System.out.println("name :" + item.getName());
             System.out.println("statues :" + item.getStatus());
         }
-        System.out.println("Done");*/
+        System.out.println("Done");
 
- /*     System.out.println("retrive by phone....");
+      System.out.println("retrive by phone....");
         User returnedUserByphone = userDao.retrieveByPhoneNumber("+2314567896");
-
-        System.out.println("phone number :" + returnedUserByphone.getPhoneNumber());
-        System.out.println("name :" + returnedUserByphone.getName());
-        System.out.println("statues :" + returnedUserByphone.getStatus());
-        System.out.println("Done");*/
+        if(returnedUserByphone!=null) {
+	        System.out.println("phone number :" + returnedUserByphone.getPhoneNumber());
+	        System.out.println("name :" + returnedUserByphone.getName());
+	        System.out.println("statues :" + returnedUserByphone.getStatus());
+	        System.out.println("Done");
+        }
+        else {
+        	System.out.println("no user retrieved");
+        }
         System.out.println("updating...");
-       /* User updateUser = null;
+        User updateUser = null;
         try {
             updateUser = new User("+0101530354", "yahiaamr", Country.Albania, "1113777776", true, UserStatus.BUSY, null, "hello!", 'M',
                     new Date(2010, 11, 1), "yahiaamr@gmail.com");
@@ -76,24 +81,26 @@ public class DatabaseUserTableTest{
             ex.printStackTrace();
         }
 
-        /*  User newUser = null;
+          User newUser = null;
         try {
-            newUser = new User("khaled taher", "10000000092", "eee@gmail.com", Country.Central_African_Republic,
-                    new Date(2010, 11, 1), 'F', UserStatus.AWAY, null, "hello00000000 !", "+2760006621");
+            newUser = new User("+2760006621", "khaled taher", Country.Central_African_Republic, "10000000092", false, UserStatus.AWAY,
+            		null, "hello00000000 !", 'M', new Date(2010, 11, 1), "eee@gmail.com");
         } catch (InvalidInputException ex) {
             ex.printStackTrace();
         }
+        /*
         try {
             userDao.persist(newUser);
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
+        */
         try {
             userDao.update(updateUser);
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-        System.out.println("Done");*/
+        System.out.println("Done");
 
         User testUser2 = null;
         boolean flag = false;
@@ -121,11 +128,12 @@ public class DatabaseUserTableTest{
 
         }
 
-        /* Friend friend = new Friend(newUser, InvitationStatus.PENDING);
-            FriendsDao friendDao = new FriendsDao(newUser);
+         Friend friend = new Friend(newUser, InvitationStatus.PENDING);
+         /*   
+         FriendsDao friendDao = new FriendsDao(newUser);
             
             try {
-            friendDao.persist(testUser.getPhoneNumber(), friend);
+            friendDao.persist(friend);
             } catch (SQLException ex) {
             ex.printStackTrace();
             }
@@ -133,6 +141,7 @@ public class DatabaseUserTableTest{
             friendDao.retrieveAllFriends();
             System.out.println("Done");
             friendDao.retrieveByName("mayada khaled");
-            System.out.println("Done");*/
+            System.out.println("Done");
+            */
     }
 }

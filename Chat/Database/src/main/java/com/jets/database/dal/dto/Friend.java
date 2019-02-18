@@ -7,7 +7,7 @@ import java.sql.Date;
 
 /**
 DTO for Friend table
-@author M. ALI
+@author Mohamed Ali
 */
 public class Friend {
     private InvitationStatus invitationStatus;

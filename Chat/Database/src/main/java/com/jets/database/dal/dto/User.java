@@ -82,7 +82,6 @@ public class User implements Serializable{
         setStatus(status);
         setPicture(picture);
         setBio(bio);
-        setPasswordFlag(passwordFlag);
         try{
             setPhoneNumber(phoneNumber);
         }
@@ -97,24 +96,16 @@ public class User implements Serializable{
         
     }
 
-    public boolean isPasswordFlag() {
-        return passwordFlag;
-    }
-
-    public void setPasswordFlag(boolean passwordFlag) {
-        this.passwordFlag = passwordFlag;
-    }
-
     public String getName() {
         return name;
     }
 
     public void setName(String name) throws InvalidInputException {
-        if(name.length()>=8 && name.length()<30){
+        if(name.length()>=4 && name.length()<=30){
             this.name = name;
         }
         else{
-            throw new InvalidInputException("name must be between 8 and 30 characters");
+            throw new InvalidInputException("name must be between 4 and 30 characters");
         }
     }
     
@@ -128,11 +119,12 @@ public class User implements Serializable{
     }
 
     public void setPassword(String password) throws InvalidInputException {
-        if(password.equals("")){
+        if(password==null || password.equals("")){
             passwordFlag=false;
             return;
         }
-        if(password.length()>=8 && password.length()<30){
+        if(password.length()>=8 && password.length()<=30){
+        	passwordFlag=true;
             this.password = password;
         }
         else{
@@ -166,7 +158,7 @@ public class User implements Serializable{
     }
 
     public void setDateOfBirth(Date dateOfBirth) throws InvalidInputException {
-        if(dateOfBirth.compareTo(new Date(1980,0,1))>0 && dateOfBirth.compareTo(new Date(2013,11,31))<0){
+        if(dateOfBirth.compareTo(new Date(1980,0,1))>=0 && dateOfBirth.compareTo(new Date(2013,11,31))<=0){
             this.dateOfBirth = dateOfBirth;
         }
         else{
@@ -216,7 +208,7 @@ public class User implements Serializable{
     }   
     
     public void setPhoneNumber(String phoneNumber) throws InvalidInputException {
-        if(phoneNumber.length()>=10 && phoneNumber.length()<15){
+        if(phoneNumber.length()>=10 && phoneNumber.length()<=15){
             this.phoneNumber=phoneNumber;
         }
         else{

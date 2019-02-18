@@ -1,67 +1,59 @@
 package com.jets.tests.database;
 
-import com.jets.database.dal.dao.IGroupDao;
-import com.jets.database.dal.dao.impl.GroupDao;
-import com.jets.database.dal.dto.Group;
-import com.jets.database.dal.dto.User;
-import com.jets.database.dal.dto.enums.Country;
-import com.jets.database.dal.dto.enums.UserStatus;
-import com.jets.database.exception.InvalidInputException;
-import java.sql.Date;
 import java.sql.SQLException;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.Set;
+
+import com.jets.database.dal.dao.impl.GroupDao;
+import com.jets.database.dal.dao.impl.UserDao;
+import com.jets.database.dal.dto.Friend;
+import com.jets.database.dal.dto.Group;
+import com.jets.database.dal.dto.User;
+import com.jets.database.exception.InvalidInputException;
 
 /**
- *
- * @author Zainab
+ * test of GroupDao
+ * @author Mohamed Ali
  */
 public class DatabaseGroupTableTest {
 
-    public static void main(String[] args) throws SQLException {
-        System.out.println("Not yet done");
-        User testUser = null;
-//        try {
-//            testUser = new User(
-//                    "1234567800",
-//                    "Zainab Ashour",
-//                    Country.Albania,
-//                    "+20000000000",
-//                    "false",
-//                    UserStatus.OFFLINE,
-//                    null,
-//                    "Hello",
-//                    'F',            
-//                    new Date(2010, 11, 1),
-//                    "ZaianbAshour33@gmail.com"
-//                    );
-//        } catch (InvalidInputException ex) {
-//            ex.printStackTrace();
-//        }
-        GroupDao groupDao = new GroupDao(testUser);
-        
-        Group group = new Group(1,"friendGroup");
-                  
-        groupDao.persist(group);
-        
-       System.out.println("insert new Group...."); 
-
-        List<Group> returnedUserGroups = groupDao.retrieveAllGroups();
-        for (Group item : returnedUserGroups) {
-            System.out.println("Group Id :" + item.getGroupId());
-            System.out.println("Group Id :" + item.getName());
-        }
-        
-        List<Group> returnedUserGroup = groupDao.retrieveByName("fr");
-        for (Group item : returnedUserGroup) {
-            System.out.println("Group Id :" + item.getGroupId());
-            System.out.println("Group Id :" + item.getName());
-
-        }
-        
-        group.setName("friendChatting");
-        groupDao. update(group) ;
-      //  groupDao. delete(group.getGroupId());
+    public static void main(String[] args) throws SQLException,InvalidInputException {
+    	UserDao userDao=new UserDao();
+    	User user1=userDao.retrieveByName("yahiaamr").get(0);
+    	User user2=userDao.retrieveByName("mayada khaled").get(1);
+    	GroupDao groupDao=new GroupDao(user1.getPhoneNumber());
+    	
+    	System.out.println("persist group");
+    	Group group=new Group("group",user2.getPhoneNumber());
+    	groupDao.persist(group);
+    	System.out.println("done\n");
+    	
+    	System.out.println("retrieve groups");
+    	List<Group> groupList=groupDao.retrieveAllGroups();
+    	for(Group group2:groupList) {
+    		System.out.println("name:"+group2.getName());
+    		System.out.println("id:"+group2.getGroupId());
+    		System.out.println("admin:"+group2.getUserPhoneNumber());
+    		Set<String> friendList=group2.getFriends();
+    		for(String friend:friendList) {
+    			System.out.println("friend:"+friend);
+    		}
+    	}
+    	System.out.println();
+    	
+    	Group group3=groupList.get(0);
+    	group3.setName("hello");
+    	group3.addFriend("+12345678956");
+    	groupDao.update(group3);
+    	groupList=groupDao.retrieveAllGroups();
+    	System.out.println("name:"+group3.getName());
+		Set<String> friendList=group3.getFriends();
+		for(String friend:friendList) {
+			System.out.println("friend:"+friend);
+		}
+		System.out.println();
+    	
+    	System.out.println("delete group");
+    	groupDao.delete(group3.getGroupId());
     }
 }

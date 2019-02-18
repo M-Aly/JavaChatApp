@@ -37,7 +37,13 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
+import javafx.scene.text.Text;
 
+/**
+ * controller of the dashboard
+ * @author Mohamed Ali
+ * @author Mayada Khaled
+ */
 public class DashboardController implements Initializable {
 
 	@FXML
@@ -46,7 +52,12 @@ public class DashboardController implements Initializable {
 	private TextArea sendArea;
 	@FXML
 	private Button sendButton;
-	private int counter = 1;
+    
+    private Text chatText;
+    private static final boolean MESSAGE_SENT=true;
+    private static final boolean MESSAGE_RECEIVED=false;
+    private boolean messageFlag;
+	private int counter = 0;
 	private HBox chat;
 
 	@FXML
@@ -71,57 +82,7 @@ public class DashboardController implements Initializable {
 
 	private VBox contactBox;
 
-	@Override
-	public void initialize(URL location, ResourceBundle resources) {
-
-		loadContacts();
-		setMenu();
-		sendArea.setOnKeyTyped((event) -> {
-
-			if ((event.getCharacter().equals("\n") || event.getCharacter().equals("\r"))) {
-				if (sendArea.getText().equals("\n")) {
-					sendArea.clear();
-				} else {
-					addMessageSent(sendArea.getText());
-					sendArea.clear();
-				}
-			}
-		});
-		sendButton.setOnMouseClicked((event) -> {
-			if (!sendArea.getText().equals("")) {
-				addMessageSent(sendArea.getText());
-				sendArea.clear();
-			}
-		});
-
-	}
-
-	private void loadMessage(String message) {
-		try {
-			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/dashboard/message.fxml"));
-			chat = fxmlLoader.load();
-			TextArea chatText = (TextArea) chat.getChildren().get(1);
-			chatText.setEditable(false);
-			chatText.setText(message);
-			chatArea.getChildren().add(chat);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-
-	private void addMessageSent(String message) {
-		loadMessage(message);
-		chat.setStyle("-fx-translate-x: " + 80);
-		GridPane.setConstraints(chat, 0, counter, 2, 1);
-		counter++;
-	}
-
-	public void addMessageReceived(String message) {
-		loadMessage(message);
-		chat.setStyle("-fx-translate-x: " + 100);
-		GridPane.setConstraints(chat, 1, counter, 2, 1);
-		counter++;
-	}
+	
 
 	public void loadContacts()// Friend user)
 	{
@@ -266,4 +227,62 @@ public class DashboardController implements Initializable {
 		});
 
 	}
+    
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+    	loadContacts();
+		setMenu();
+        sendArea.setOnKeyTyped((event)->{
+            if(event.getCharacter().equals("\n") || event.getCharacter().equals("\r")) {
+                String message=sendArea.getText().trim();
+            	if(message.equals("")){
+                    sendArea.clear();
+                }
+                else{
+                    addMessageSent(message);
+                    sendArea.clear();
+                }
+            }
+        });
+        sendButton.setOnMouseClicked((event)->{
+        	String message=sendArea.getText().trim();
+            if(!message.equals("")) {
+                addMessageSent(message);
+                sendArea.clear();
+            }
+        });
+    }
+    
+    private void loadMessage(String message){
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/dashboard/message.fxml"));
+            chat=fxmlLoader.load();
+            VBox chatBox = (VBox) chat.getChildren().get(1);
+            chatText = (Text) chatBox.getChildren().get(0);
+            chatText.setText(message);
+            chatArea.getChildren().add(chat);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void addMessage(String message,boolean flag) {
+    	int column = flag==MESSAGE_SENT?0:1;
+    	if(messageFlag==flag && chatText!=null) {
+        	chatText.setText(chatText.getText()+"\n"+message);
+        }
+        else {
+        	loadMessage(message);
+        	GridPane.setConstraints(chat, column, counter, 2, 1);
+        	counter++;
+        }
+        messageFlag=flag;
+    }
+    
+    public void addMessageSent(String message) {
+    	addMessage(message, MESSAGE_SENT);
+    }
+    public void addMessageReceived(String message) {
+    	addMessage(message, MESSAGE_RECEIVED);
+    }
 }

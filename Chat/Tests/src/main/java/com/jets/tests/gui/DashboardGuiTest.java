@@ -8,6 +8,10 @@ import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import com.jets.gui.controller.DashboardController;
 
+/**
+ * test of the dashboard (not completed)
+ * @author Mohamed Ali
+ */
 public class DashboardGuiTest extends Application {
 
     private DashboardController controller;
@@ -27,6 +31,9 @@ public class DashboardGuiTest extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
         controller.addMessageReceived("hello");
+        controller.addMessageSent("hi");
+        controller.addMessageSent("hi");
+        controller.addMessageReceived("hi");
     }
 
     public static void main(String[] args) {

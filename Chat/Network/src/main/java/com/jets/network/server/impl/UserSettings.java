@@ -1,4 +1,4 @@
-package com.jets.network.common.impl;
+package com.jets.network.server.impl;
 
 import java.rmi.RemoteException;
 import java.sql.SQLException;

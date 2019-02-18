@@ -26,12 +26,10 @@ CRUD operations for User table
 */
 public class UserDao implements IUserDao {
 
-    private User user;
     private Connection connection;
     PreparedStatement statement = null;
 
-    public UserDao(User user) {
-        this.user = user;
+    public UserDao() {
         connection = ConnectionMySql.getInstance().getConnection();
 
     }
@@ -45,7 +43,7 @@ public class UserDao implements IUserDao {
         try {
             String insertNewUserQuery = "INSERT INTO user(phonenumber,name,country,password,changePassword,statues"
             		+ ",picture,bio,gender,birthofdate,email)VALUES('" + newUser.getPhoneNumber() + "','" 
-            		+ newUser.getName() + "','" + newUser.getCountry() + "','" + newUser.getPassword() + "','" + newUser.isPasswordFlag() + "','" + newUser.getStatus() + "','" + newUser.getPicture() + "','" + newUser.getBio() + "','" + newUser.getGender() + "','" + newUser.getDateOfBirth() + "','" + newUser.getEmail() + "')";
+            		+ newUser.getName() + "','" + newUser.getCountry() + "','" + newUser.getPassword() + "','" + newUser.getStatus() + "','" + newUser.getPicture() + "','" + newUser.getBio() + "','" + newUser.getGender() + "','" + newUser.getDateOfBirth() + "','" + newUser.getEmail() + "')";
             
             connection.setAutoCommit(false);
             statement = connection.prepareStatement(insertNewUserQuery);
@@ -106,7 +104,7 @@ public class UserDao implements IUserDao {
     public List<User> retrieveByName(String name) {
         List<User> userList = new ArrayList<>();
         ResultSet result;
-        String retrieveByNameQuery = "SELECT * FROM user WHERE name like '" + name + "';";
+        String retrieveByNameQuery = "SELECT * FROM user WHERE name like '%" + name + "%';";
 
         Statement statement = null;
         try {

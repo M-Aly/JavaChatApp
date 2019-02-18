@@ -1,9 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package com.jets.network.common.impl;
+package com.jets.network.server.impl;
 
 import java.rmi.RemoteException;
 import java.sql.SQLException;
@@ -16,7 +11,7 @@ import com.jets.network.exception.StatusChangeFailedException;
 
 /**
  *
- * @author PC
+ * @author Amer
  */
 public class IntroduceUser implements IntroduceUserInt{
 
@@ -25,11 +20,9 @@ public class IntroduceUser implements IntroduceUserInt{
 	
 	@Override
 	public void register(User user) throws RemoteException, NoSuchUserException {
-		// TODO Auto-generated method stub
 		try {
 			userInfo.persist(user);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			throw new NoSuchUserException();
 		}
 		
@@ -37,13 +30,12 @@ public class IntroduceUser implements IntroduceUserInt{
 
 	@Override
 	public User logIn(String phoneNumber, String password) throws RemoteException {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public void signOut(User user) throws RemoteException, StatusChangeFailedException {
-		// TODO Auto-generated method stub
+
 		
 		
 	}

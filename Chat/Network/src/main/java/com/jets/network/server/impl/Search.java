@@ -1,4 +1,4 @@
-package com.jets.network.common.impl;
+package com.jets.network.server.impl;
 
 import java.rmi.RemoteException;
 import java.util.List;
@@ -19,7 +19,7 @@ public class Search implements SearchInt {
 	FriendsDao friend;
 	GroupDao group;
 	@Override
-	public List<Friend>  searchUser(String search) throws RemoteException {
+	public List<Friend>  searchFriend(String search) throws RemoteException {
 		
 		
 		List<Friend> friendList=friend.retrieveByName(search);
