@@ -6,16 +6,13 @@ import com.jets.database.dal.dao.IGroupDao;
 import com.jets.database.dal.dto.Group;
 import com.jets.database.exception.InvalidInputException;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 /**
@@ -72,17 +69,9 @@ public class GroupDao implements IGroupDao {
 			}
 		}
     	finally {
-    		close();
-    		try {
-				if(retrieveGroupResultSet!=null) {
-					retrieveGroupResultSet.close();
-				}
-				if(retrieveGroupStatement!=null) {
-					retrieveGroupStatement.close();
-				}
-			} catch (SQLException ex) {
-				ex.printStackTrace();
-			}
+    		closeResultSet(retrieveGroupResultSet);
+    		closeStatement(retrieveGroupStatement);
+    		closeStatement(statement);
     	}
     }
     
@@ -90,80 +79,67 @@ public class GroupDao implements IGroupDao {
 
     @Override
     public void update(Group group) throws SQLException {
+    	if(group.getFriends().isEmpty()) {
+    		delete(group.getGroupId());
+    	}
+    	else {
     	
-    	Statement retrieveFriendsStatement=null;
-    	ResultSet retrieveFriendsResultSet=null;
-        try {
-			String updateGroupName =
-			"UPDATE chat_database.group SET groupName ='" + group.getName()+ "' WHERE groupid= "+group.getGroupId()+" AND userPhoneNumber='"+userPhoneNumber+"'";
-			statement=connection.createStatement();
-			if(statement!=null) {
-				connection.setAutoCommit(false);
-				statement.addBatch(updateGroupName);
-			    
-			    String updateGroupPhone;
-			    String retrieveFriend="SELECT friendPhoneNumber FROM chat_database.group_friend WHERE groupId="+group.getGroupId();
-			    retrieveFriendsStatement=connection.createStatement();
-			    retrieveFriendsResultSet=retrieveFriendsStatement.executeQuery(retrieveFriend);
-			    if(retrieveFriendsResultSet!=null) {
-			    	Set<String> friendsCopy=new HashSet<>();
-			    	for(String friendPhoneNumber:group.getFriends()) {
-			    		friendsCopy.add(friendPhoneNumber);
-			    	}
-			    	while(retrieveFriendsResultSet.next()) {
-			    		String friendPhoneNumber=retrieveFriendsResultSet.getString(1);
-			    		boolean haveFriend=false;
-			    		Iterator<String> friendIterator=friendsCopy.iterator();
-			    		while(friendIterator.hasNext() && !haveFriend) {
-			    			String friend=friendIterator.next();
-				    		if(friend.equals(friendPhoneNumber)) {
-				    			haveFriend=true;
-				    			friendsCopy.remove(friend);
-				    		}
-			    		}
-			    		if(!haveFriend) {
-				        	updateGroupPhone =
-				                    "INSERT INTO chat_database.group_friend(groupId,friendPhoneNumber) VALUES (" + group.getGroupId()+",'"+friendPhoneNumber+"')";
+	    	Statement retrieveFriendsStatement=null;
+	    	ResultSet retrieveFriendsResultSet=null;
+	        try {
+				String updateGroupName =
+				"UPDATE chat_database.group SET groupName ='" + group.getName()+ "' WHERE groupid= "+group.getGroupId()+" AND userPhoneNumber='"+userPhoneNumber+"'";
+				statement=connection.createStatement();
+				if(statement!=null) {
+					connection.setAutoCommit(false);
+					statement.addBatch(updateGroupName);
+				    
+				    String updateGroupPhone=null;
+				    String retrieveFriend="SELECT friendPhoneNumber FROM chat_database.group_friend WHERE groupId="+group.getGroupId();
+				    retrieveFriendsStatement=connection.createStatement();
+				    retrieveFriendsResultSet=retrieveFriendsStatement.executeQuery(retrieveFriend);
+				    if(retrieveFriendsResultSet!=null) {
+				    	Set<String> friendsCopy=new HashSet<>();
+				    	for(String friendPhoneNumber:group.getFriends()) {
+				    		friendsCopy.add(friendPhoneNumber);
 				    	}
-			    		else {
-			    			updateGroupPhone="UPDATE chat_database.group_friend SET friendPhoneNumber='"+friendPhoneNumber+"' WHERE groupId="+group.getGroupId();
-			    		}
-			    		statement.addBatch(updateGroupPhone);
+				    	while(retrieveFriendsResultSet.next()) {
+				    		String friendPhoneNumber=retrieveFriendsResultSet.getString(1);
+				    		boolean haveFriend=false;
+				    		Iterator<String> friendIterator=friendsCopy.iterator();
+				    		while(friendIterator.hasNext() && !haveFriend) {
+				    			String friend=friendIterator.next();
+					    		if(friend.equals(friendPhoneNumber)) {
+					    			haveFriend=true;
+					    			friendsCopy.remove(friend);
+					    		}
+				    		}
+				    		if(!haveFriend) {
+					        	updateGroupPhone = "DELETE FROM chat_database.group_friend WHERE friendPhoneNumber='"+friendPhoneNumber+"' AND groupId="+group.getGroupId();
+					    	}
+				    		statement.addBatch(updateGroupPhone);
+					    }
+				    	for(String friendPhoneNumber:friendsCopy) {
+				    		updateGroupPhone = "INSERT INTO chat_database.group_friend(groupId,friendPhoneNumber) VALUES (" + group.getGroupId()+",'"+friendPhoneNumber+"')";
+				    		statement.addBatch(updateGroupPhone);
+				    	}
 				    }
-			    	for(String friendPhoneNumber:friendsCopy) {
-			    		updateGroupPhone="DELETE FROM chat_database.group_friend WHERE friendPhoneNumber='"+friendPhoneNumber+"' AND groupId="+group.getGroupId();
-			    		statement.addBatch(updateGroupPhone);
-			    	}
-			    }
-			    else {
-			    	throw new SQLException("failed to execute");
-			    }
-			    statement.executeBatch();
-		    	connection.commit();
+				    else {
+				    	throw new SQLException("failed to execute");
+				    }
+				    statement.executeBatch();
+			    	connection.commit();
+				}
+				else {
+					throw new SQLException("failed to execute");
+				}
 			}
-			else {
-				throw new SQLException("failed to execute");
+	        finally {
+	        	closeResultSet(retrieveFriendsResultSet);
+	        	closeStatement(retrieveFriendsStatement);
+	        	closeStatement(statement);
 			}
-		}
-        finally {
-        	close();
-        	try {
-        		if(retrieveFriendsResultSet!=null) {
-        			retrieveFriendsResultSet.close();
-        		}
-        	}
-        	catch(SQLException ex) {
-        		ex.printStackTrace();
-        	}
-        	try {
-        		if(retrieveFriendsStatement!=null) {
-        			retrieveFriendsStatement.close();
-        		}
-        	}
-        	catch(SQLException ex) {
-        		ex.printStackTrace();
-        	}
-		}
+    	}
     }  
 
     @Override
@@ -182,20 +158,9 @@ public class GroupDao implements IGroupDao {
 			}
 		}
         finally {
-        	close();
+        	closeStatement(statement);
         }
     }
-
-    public void close() {
-        if(statement != null) {
-            try {
-                statement.close();
-                
-            } catch (SQLException ex) {
-            	ex.printStackTrace();
-            }
-        }
-   }
     
     @Override
 	public List<Group> retrieveByName(String name) {
@@ -237,23 +202,9 @@ public class GroupDao implements IGroupDao {
             groupList=null;
         }
         finally {
-        	close();
-        	try {
-        		if(retrieveByNameResultSet!=null) {
-        			retrieveByNameResultSet.close();
-        		}
-        	}
-        	catch(SQLException ex) {
-        		ex.printStackTrace();
-        	}
-        	try {
-        		if(retrieveByNameStatement!=null) {
-        			retrieveByNameStatement.close();
-        		}
-        	}
-        	catch(SQLException ex) {
-        		ex.printStackTrace();
-        	}
+        	closeResultSet(retrieveByNameResultSet);
+        	closeStatement(retrieveByNameStatement);
+        	closeStatement(statement);
         }
         return groupList;
 	}
@@ -262,7 +213,26 @@ public class GroupDao implements IGroupDao {
 	public List<Group> retrieveAllGroups() {
 		return retrieveByName("");
 	}
+	
+	private void closeStatement(Statement statement) {
+        if(statement != null) {
+            try {
+                statement.close();
+                
+            } catch (SQLException ex) {
+            	ex.printStackTrace();
+            }
+        }
+   }
 
-    
+    private void closeResultSet(ResultSet resultSet) {
+    	if(resultSet!=null) {
+	    	try {
+				resultSet.close();
+			} catch (SQLException ex) {
+				ex.printStackTrace();
+			}
+    	}
+    }
 
 }

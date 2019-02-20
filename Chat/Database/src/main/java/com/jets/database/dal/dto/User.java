@@ -1,21 +1,24 @@
+
 package com.jets.database.dal.dto;
-
-import com.jets.database.dal.dto.enums.Country;
-import com.jets.database.exception.InvalidInputException;
-import com.jets.database.dal.dto.enums.UserStatus;
-import com.jets.database.exception.InvalidDTOException;
-
 import java.io.Serializable;
 import java.sql.Date;
 
+import com.jets.database.dal.dto.enums.Country;
+import com.jets.database.dal.dto.enums.UserStatus;
+import com.jets.database.exception.InvalidDTOException;
+import com.jets.database.exception.InvalidInputException;
+
+
+
 /**
- * DTO for User table
- * 
- * @author Mohamed Ali
- */
+DTO for User table
+@author Mohamed Ali
+*/
 public class User implements Serializable{
-    private String name;
+
+	private String name;
     private String password;
+    private boolean changePasswordFlag;
     private String email;
     private Country country;
     private Date dateOfBirth;
@@ -26,13 +29,16 @@ public class User implements Serializable{
     private String phoneNumber;
     
     private boolean passwordFlag=true;
+    
+    public static final boolean CREATE_FROM_SERVER=true;
+    public static final boolean CREATE_FROM_CLIENT=false;
 
     public User(
             String phoneNumber,
             String name, 
-             Country country,
+            Country country,
             String password, 
-            boolean passwordFlag,
+            boolean changePasswordFlag,
             UserStatus status,
             byte[] picture,
             String bio ,
@@ -82,6 +88,7 @@ public class User implements Serializable{
         setStatus(status);
         setPicture(picture);
         setBio(bio);
+        setChangePasswordFlag(passwordFlag);
         try{
             setPhoneNumber(phoneNumber);
         }
@@ -90,8 +97,9 @@ public class User implements Serializable{
             errors.append("\n");
         }
         String appendedErrors=errors.toString();
-        if(!appendedErrors.equals(""))
+        if(!appendedErrors.equals("")) {
             throw new InvalidInputException(appendedErrors);
+        }
         
         
     }
@@ -101,7 +109,7 @@ public class User implements Serializable{
     }
 
     public void setName(String name) throws InvalidInputException {
-        if(name.length()>=4 && name.length()<=30){
+    	  if(name.length()>=4 && name.length()<=30){
             this.name = name;
         }
         else{
@@ -158,8 +166,8 @@ public class User implements Serializable{
     }
 
     public void setDateOfBirth(Date dateOfBirth) throws InvalidInputException {
-        if(dateOfBirth.compareTo(new Date(1980,0,1))>=0 && dateOfBirth.compareTo(new Date(2013,11,31))<=0){
-            this.dateOfBirth = dateOfBirth;
+        if(dateOfBirth.compareTo(Date.valueOf("1980-1-1"))>=0 && dateOfBirth.compareTo(Date.valueOf("2013-12-31"))<=0){ 
+        	this.dateOfBirth = dateOfBirth;
         }
         else{
             throw new InvalidInputException("Date must be between 1980 and 2013");
@@ -207,7 +215,7 @@ public class User implements Serializable{
         return phoneNumber;
     }   
     
-    public void setPhoneNumber(String phoneNumber) throws InvalidInputException {
+    private void setPhoneNumber(String phoneNumber) throws InvalidInputException {
         if(phoneNumber.length()>=10 && phoneNumber.length()<=15){
             this.phoneNumber=phoneNumber;
         }
@@ -215,5 +223,13 @@ public class User implements Serializable{
             throw new InvalidInputException("phone number must be between 10 and 15 characters");
         }
     }
-    
+
+	public boolean getChangePasswordFlag() {
+		return changePasswordFlag;
+	}
+
+	private void setChangePasswordFlag(boolean changePasswordFlag) {
+		this.changePasswordFlag = changePasswordFlag;
+	}
+
 }
