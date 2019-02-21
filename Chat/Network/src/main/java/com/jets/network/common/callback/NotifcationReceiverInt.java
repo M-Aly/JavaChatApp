@@ -16,4 +16,7 @@ public interface NotifcationReceiverInt extends Remote {
     receive friend status changes
     */
     void receiveFriendStatusChangeNotifications(List<Friend> friends) throws RemoteException;
+    
+    
+    
 }
