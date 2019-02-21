@@ -2,7 +2,6 @@ package com.jets.database.dal.dao;
 
 import java.util.List;
 import com.jets.database.dal.dto.Friend;
-import com.jets.database.dal.dto.User;
 import java.sql.SQLException;
 
 /**
@@ -28,7 +27,7 @@ public interface IFriendsDao{
     /**
     delete a friend by his phone number
     */
-    void delete(String friendphone) throws SQLException;
+    void delete(String friendPhoneNumber) throws SQLException;
     
     /**
     update a friend by his phone number

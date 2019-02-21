@@ -58,4 +58,8 @@ public class ServiceFactory {
     		ex.printStackTrace();
     	}
     }
+    
+    public void startServices() {
+    	startServices(DEFAULT_FILE);
+    }
 }

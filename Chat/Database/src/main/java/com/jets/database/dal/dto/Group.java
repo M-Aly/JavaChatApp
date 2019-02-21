@@ -12,11 +12,7 @@ DTO for Group table
 @author Mohamed Ali
 */
 public class Group {
-    /**
-    when chatting
-    */
     private int groupId;
-    
     private String name;
     private String userPhoneNumber;
     private Set<String> friendPhoneNumbers=new TreeSet<>();
@@ -90,6 +86,18 @@ public class Group {
     public Set<String> getFriends(){
         return friendPhoneNumbers;
     }
+
+	@Override
+	public String toString() {
+		StringBuilder stringBuilder=new StringBuilder();
+		stringBuilder.append("id:"+getGroupId()+"\n");
+		stringBuilder.append("name:"+getName()+"\n");
+		stringBuilder.append("admin:"+getUserPhoneNumber()+"\n");
+		for(String friend:getFriends()) {
+			stringBuilder.append("friend:"+friend+"\n");
+		}
+		return stringBuilder.toString();
+	}
     
     
 }

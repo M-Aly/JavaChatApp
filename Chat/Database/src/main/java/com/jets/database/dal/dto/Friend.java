@@ -3,6 +3,8 @@ package com.jets.database.dal.dto;
 import com.jets.database.dal.dto.enums.Country;
 import com.jets.database.dal.dto.enums.InvitationStatus;
 import com.jets.database.dal.dto.enums.UserStatus;
+import com.jets.database.exception.InvalidDTOException;
+
 import java.sql.Date;
 
 /**
@@ -16,6 +18,9 @@ public class Friend {
     public Friend(User friend, InvitationStatus invitationStatus) {
         this.friend = friend;
         this.invitationStatus = invitationStatus;
+        if(friend == null) {
+        	throw new InvalidDTOException("friend can not be null");
+        }
     }
 
     public InvitationStatus getInvitationStatus() {

@@ -25,11 +25,6 @@ public interface IUserDao{
     it is not the primary key so it returns a list
     */
     List<User> retrieveByName(String name);
-    
-    /**
-    validation the user matches the database exactly
-    */
-    boolean validate(User user) throws SQLException;
 
     /**
     update the current user
