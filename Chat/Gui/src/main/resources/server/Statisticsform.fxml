@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<Pane fx:id="paneID" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="465.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.jets.gui.controller.StatisticsController">
+   <children>
+      <TableView fx:id="countriesTable" layoutX="72.0" layoutY="230.0" prefHeight="130.0" prefWidth="449.0">
+        <columns>
+          <TableColumn prefWidth="222.0" text="Country" />
+          <TableColumn prefWidth="318.0" text="Users" />
+        </columns>
+      </TableView>
+      <Label layoutX="93.0" layoutY="59.0" text="Online">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font>
+      </Label>
+      <Label layoutX="92.0" layoutY="99.0" prefHeight="25.0" prefWidth="63.0" text="Offline">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font>
+      </Label>
+      <Label layoutX="92.0" layoutY="143.0" text="Female">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font>
+      </Label>
+      <Label layoutX="92.0" layoutY="188.0" text="Male">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="246.0" layoutY="14.0" prefHeight="30.0" prefWidth="129.0" text="Statistics" textAlignment="CENTER" textFill="#c43a2d">
+         <font>
+            <Font name="System Bold Italic" size="20.0" />
+         </font>
+      </Label>
+      <TextField fx:id="onlineTxt" layoutX="209.0" layoutY="59.0" />
+      <TextField fx:id="offlineTxt" layoutX="209.0" layoutY="99.0" />
+      <TextField fx:id="femaleTxt" layoutX="209.0" layoutY="143.0" />
+      <TextField fx:id="maleTxt" layoutX="209.0" layoutY="188.0" />
+   </children>
+</Pane>

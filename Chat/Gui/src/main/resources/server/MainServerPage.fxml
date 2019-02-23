@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<GridPane maxHeight="10000.0" maxWidth="10000.0" minHeight="670.0" minWidth="840.0" prefHeight="670.0" prefWidth="840.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+  <columnConstraints>
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="10000.0" minWidth="50.0" prefWidth="95.0" />
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="10000.0" minWidth="400.0" prefWidth="670.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="10000.0" minWidth="50.0" prefWidth="95.0" />
+  </columnConstraints>
+  <rowConstraints>
+    <RowConstraints maxHeight="10000.0" minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="10000.0" minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="10000.0" minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="10000.0" minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="10000.0" minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
+  </rowConstraints>
+   <children>
+      <HBox maxWidth="10000.0" minWidth="500.0" prefHeight="100.0" prefWidth="10000.0" GridPane.columnIndex="1">
+         <children>
+            <ImageView fitHeight="100.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+               <HBox.margin>
+                  <Insets bottom="50.0" left="20.0" right="20.0" top="50.0" />
+               </HBox.margin>
+               <image>
+                  <Image url="@/server/dot.png" />
+               </image>
+            </ImageView>
+            <Label maxHeight="500.0" maxWidth="10000.0" prefHeight="21.0" prefWidth="217.0" text="Server Features :">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+            </Label>
+         </children>
+      </HBox>
+      <HBox maxHeight="100000.0" maxWidth="30000.0" prefHeight="1000.0" prefWidth="1000.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+         <children>
+            <ImageView fitHeight="50.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+               <HBox.margin>
+                  <Insets bottom="20.0" left="30.0" right="20.0" top="20.0" />
+               </HBox.margin>
+               <image>
+                  <Image url="@/server/server.png" />
+               </image>
+            </ImageView>
+            <Button fx:id="serverManagment" maxHeight="50.0" maxWidth="100000.0" minWidth="400.0" mnemonicParsing="false" onMouseClicked="#manageServer" prefHeight="40.0" prefWidth="10000.0" stylesheets="@buttonStyle.css" text="Server Managment">
+               <HBox.margin>
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+               </HBox.margin>
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Button>
+         </children>
+         <GridPane.margin>
+            <Insets />
+         </GridPane.margin>
+      </HBox>
+      <HBox maxHeight="100000.0" maxWidth="10000.0" prefHeight="1000.0" prefWidth="1000.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+         <children>
+            <ImageView fitHeight="50.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+               <HBox.margin>
+                  <Insets bottom="20.0" left="30.0" right="20.0" top="20.0" />
+               </HBox.margin>
+               <image>
+                  <Image url="@/server/addPerson.png" />
+               </image>
+            </ImageView>
+            <Button fx:id="serverAddUser" maxHeight="50.0" maxWidth="10000.0" minWidth="400.0" mnemonicParsing="false" onMouseClicked="#AddUser" prefHeight="40.0" prefWidth="10000.0" stylesheets="@/server/buttonStyle.css" text="Add new user">
+               <HBox.margin>
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+               </HBox.margin>
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Button>
+         </children>
+      </HBox>
+      <HBox maxHeight="100000.0" maxWidth="10000.0" prefHeight="1000.0" prefWidth="1000.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+         <children>
+            <ImageView fitHeight="50.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+               <HBox.margin>
+                  <Insets bottom="20.0" left="30.0" right="20.0" top="20.0" />
+               </HBox.margin>
+               <image>
+                  <Image url="@/server/statistics.png" />
+               </image>
+            </ImageView>
+            <Button fx:id="serverStatistics" maxHeight="50.0" maxWidth="10000.0" minWidth="400.0" mnemonicParsing="false" onMouseClicked="#makeStatistics" prefHeight="40.0" prefWidth="10000.0" stylesheets="@/server/buttonStyle.css" text="Server Statisics">
+               <HBox.margin>
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+               </HBox.margin>
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Button>
+         </children>
+      </HBox>
+      <HBox maxHeight="100000.0" maxWidth="100000.0" prefHeight="1000.0" prefWidth="1000.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+         <children>
+            <ImageView fitHeight="50.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+               <HBox.margin>
+                  <Insets bottom="20.0" left="30.0" right="20.0" top="20.0" />
+               </HBox.margin>
+               <image>
+                  <Image url="@/server/public-announcement.png" />
+               </image>
+            </ImageView>
+            <Button fx:id="serverAnnouncment" maxHeight="50.0" maxWidth="10000.0" minWidth="400.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="1000000.0" stylesheets="@/server/buttonStyle.css" text="Make announcement">
+               <HBox.margin>
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+               </HBox.margin>
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Button>
+         </children>
+      </HBox>
+   </children>
+</GridPane>
