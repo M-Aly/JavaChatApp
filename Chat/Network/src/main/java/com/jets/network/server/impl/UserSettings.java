@@ -72,6 +72,7 @@ public class UserSettings implements UserSettingsInt {
 	public void addFriends(List<Friend> friends) throws RemoteException, UpdateUserFailedException {
 		for(int i=0 ;i<friends.size();i++) {
 		try {
+			
 			currentFriend.persist(friends.get(i));
 		} catch (SQLException e) {
 			throw new  UpdateUserFailedException();

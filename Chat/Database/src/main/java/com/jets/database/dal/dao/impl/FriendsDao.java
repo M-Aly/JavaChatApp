@@ -17,6 +17,7 @@ import java.util.List;
  *
  * @author Mayada Khaled
  * @author Mohamed Ali
+ * @author Nouran Amr
  */
 public class FriendsDao implements IFriendsDao {
 	private User user;
@@ -58,7 +59,7 @@ public class FriendsDao implements IFriendsDao {
 	public List<Friend> retrieveAllFriends() {
 		List<Friend> userList = new ArrayList<Friend>();
 		sqlQuery = "SELECT friendphone,invitationstatues FROM user_friend where userphone='"
-				+ user.getPhoneNumber() + "'";
+				+ user.getPhoneNumber() + "' and invitationstatues like 'ACCEPTED' " ;
 
 		try {
 			statement = connection.createStatement();
