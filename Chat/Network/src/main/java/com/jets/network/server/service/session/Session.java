@@ -1,8 +1,11 @@
 package com.jets.network.server.service.session;
 
-import java.net.InetSocketAddress;
-List
+import java.util.UUID;
 
+/**
+@author Mohamed Ali
+*/
 public interface Session {
-	void sendMessage(InetSocketAddress sender, String message);
+	UUID getUuid();
+	String getUserPhoneNumber();
 }

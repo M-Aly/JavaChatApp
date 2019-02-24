@@ -20,8 +20,9 @@ public class ServiceLocator {
     }
     
     public synchronized static ServiceLocator getInstance(){
-        if(serviceLocator==null)
+        if(serviceLocator==null) {
         	serviceLocator=new ServiceLocator();
+        }
         return serviceLocator;
     }
     

@@ -15,14 +15,35 @@
         <artifactId>Chat</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
-    <!-- https://mvnrepository.com/artifact/org.controlsfx/controlsfx -->
     <dependencies>
+        <dependency>
+            <groupId>com.jets</groupId>
+            <artifactId>Database</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.jets</groupId>
+            <artifactId>Network</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+	    <!-- https://mvnrepository.com/artifact/org.controlsfx/controlsfx -->
 	    <dependency>
 		    <groupId>org.controlsfx</groupId>
 		    <artifactId>controlsfx</artifactId>
 		    <version>8.40.14</version>
 		</dependency>
-		
+		<!-- https://mvnrepository.com/artifact/io.github.typhon0/AnimateFX -->
+		<dependency>
+		    <groupId>io.github.typhon0</groupId>
+		    <artifactId>AnimateFX</artifactId>
+		    <version>1.2.0</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/com.jfoenix/jfoenix -->
+		<dependency>
+		    <groupId>com.jfoenix</groupId>
+		    <artifactId>jfoenix</artifactId>
+		    <version>8.0.8</version>
+		</dependency>
 	</dependencies>
 	
     

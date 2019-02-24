@@ -5,13 +5,14 @@ import com.jets.database.dal.dto.enums.InvitationStatus;
 import com.jets.database.dal.dto.enums.UserStatus;
 import com.jets.database.exception.InvalidDTOException;
 
+import java.io.Serializable;
 import java.sql.Date;
 
 /**
 DTO for Friend table
 @author Mohamed Ali
 */
-public class Friend {
+public class Friend implements Serializable {
     private InvitationStatus invitationStatus;
     private User friend;
 

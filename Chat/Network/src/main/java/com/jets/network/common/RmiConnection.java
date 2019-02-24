@@ -31,8 +31,9 @@ public class RmiConnection {
     }
     
     public synchronized static RmiConnection getInstance(){
-        if(rmiConnection==null)
+        if(rmiConnection==null) {
         	rmiConnection=new RmiConnection();
+        }
         return rmiConnection;
     }
     

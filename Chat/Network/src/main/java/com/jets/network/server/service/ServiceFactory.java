@@ -23,8 +23,9 @@ public class ServiceFactory {
     }
     
     public synchronized static ServiceFactory getInstance(){
-        if(serviceFactory==null)
+        if(serviceFactory==null) {
         	serviceFactory=new ServiceFactory();
+        }
         return serviceFactory;
     }
     

@@ -74,11 +74,11 @@ public class UserDao implements IUserDao {
 	 * search by phone number
 	 */
 	@Override
-	public User retrieveByPhoneNumber(String phonenumber) {
+	public User retrieveByPhoneNumber(String phoneNumber) {
 
 		User resultUser = null;
 
-		sqlQuery = "select * from user where phonenumber = '" + phonenumber + "';";
+		sqlQuery = "select * from user where phonenumber = '" + phoneNumber + "';";
 
 		try {
 			statement = connection.prepareStatement(sqlQuery);
@@ -146,6 +146,44 @@ public class UserDao implements IUserDao {
 		}
 		return userList;
 	}
+	
+	/**
+    validate phone number and password
+    */
+    public User retrieveByPassword(String phoneNumber,String password) throws SQLException{
+    	
+		User resultUser = null;
+
+		sqlQuery = "select * from user where phonenumber = '" + phoneNumber + "' AND password = '"+password+"';";
+
+		try {
+			statement = connection.prepareStatement(sqlQuery);
+			result = statement.executeQuery();
+
+			while (result.next()) {
+				Blob blob = result.getBlob(7);
+				byte[] picture = null;
+				if(blob != null) {
+					picture=blob.getBytes(1,(int)blob.length());
+				}
+				resultUser = new User(result.getString(1), result.getString(2), Country.valueOf(result.getString(3)),
+						"", result.getBoolean(5), UserStatus.valueOf(result.getString(6)),
+						picture, result.getString(8), result.getString(9).charAt(0), result.getDate(10),
+						result.getString(11));
+
+			}
+
+		} catch (SQLException ex) {
+			resultUser = null;
+		} catch (InvalidInputException ex) {
+			ex.printStackTrace();
+			resultUser = null;
+		} finally {
+			closeResult();
+			closeStatement();
+		}
+		return resultUser;
+    }
 
 	/**
 	 * update the current user

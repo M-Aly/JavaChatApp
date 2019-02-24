@@ -3,19 +3,20 @@ package com.jets.database.dal.dto;
 import com.jets.database.exception.InvalidDTOException;
 import com.jets.database.exception.InvalidInputException;
 
+import java.io.Serializable;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.TreeSet;
 
 /**
 DTO for Group table
 @author Mohamed Ali
 */
-public class Group {
+public class Group implements Serializable {
     private int groupId;
     private String name;
     private String userPhoneNumber;
-    private Set<String> friendPhoneNumbers=new TreeSet<>();
+    private HashSet<String> friendPhoneNumbers=new HashSet<>();
     private boolean groupSelectedFromDatabase;
 
     /**

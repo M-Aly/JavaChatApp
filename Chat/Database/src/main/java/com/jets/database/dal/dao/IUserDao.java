@@ -31,4 +31,9 @@ public interface IUserDao{
     it is read if the id matches the id in a user retrieved
     */
     void update(User currentUser) throws SQLException;
+    
+    /**
+    validate phone number and password
+    */
+    User retrieveByPassword(String phoneNumber,String password) throws SQLException;
 }
