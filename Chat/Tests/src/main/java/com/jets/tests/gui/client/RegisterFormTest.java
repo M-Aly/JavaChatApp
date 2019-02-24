@@ -19,7 +19,7 @@ public class RegisterFormTest extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("/server/Register.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/client/login/Register.fxml"));
         
         Scene scene = new Scene(root);
         stage.setTitle("Registeration Form");
