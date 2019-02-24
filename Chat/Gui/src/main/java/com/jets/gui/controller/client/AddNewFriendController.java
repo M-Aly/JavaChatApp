@@ -34,6 +34,7 @@ public class AddNewFriendController implements Initializable {
 	private Button addButton;
 	@FXML
 	private TextField textArea;
+
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		

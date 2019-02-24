@@ -9,8 +9,15 @@ import java.awt.Checkbox;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Date;
 import java.util.Observable;
 import java.util.ResourceBundle;
+
+import com.jets.database.dal.dao.impl.UserDao;
+import com.jets.database.dal.dto.User;
+import com.jets.database.dal.dto.enums.Country;
+import com.jets.database.dal.dto.enums.UserStatus;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -89,7 +96,34 @@ public class RegisterController implements Initializable {
 
     @FXML
     private void registerButtonAction() {
+    	
+    	UserDao userDao = new UserDao();
+    	
     	RegisterBtn.setOnMouseClicked((event) -> {
+    		
+    		if (PassField.getText()==ConfrimPassField.getText())
+        	{
+        		if (MaleCheckBox.is)
+        		{
+        			User newUser = new User(PhoneNumTxt.getText(),
+    						NameTxt.getText(),
+    						CountryComboBox.getValue(),
+    						PassField.getText(), 
+    						ConfrimPassField.getText(),
+    						UserStatus.AVAILABLE ,
+    						imageView.getb,
+    						BioTxtArea.getText(),
+    						'M',
+    						BirthdateCalender,
+    						);
+        		}
+        		else if(FemaleCheckBox)
+        		{
+        			
+        		}
+        		
+        	}
+    		
     		
     		
     		

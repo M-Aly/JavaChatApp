@@ -3,6 +3,9 @@ package com.jets.gui.controller.server;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import com.jets.network.common.callback.impl.Announcement;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -26,8 +29,13 @@ public class AddAnnouncmentController implements Initializable {
 	@FXML
 	public void makingAnnounce()
 	{
+		Announcement newAnnouncement = new Announcement();
+		
 		announcement.setOnMouseClicked((event) -> {
-			
+			if (writtingArea.getText()!=null) 
+			{
+				newAnnouncement.
+			}
 			
 		});
 	}

@@ -11,6 +11,7 @@ import java.net.URL;
 import java.util.Observable;
 import java.util.ResourceBundle;
 
+import com.jets.database.dal.dao.impl.UserDao;
 import com.jets.database.dal.dto.User;
 import com.jets.database.dal.dto.enums.UserStatus;
 
@@ -90,12 +91,13 @@ public class RegisterController implements Initializable {
 
     @FXML
     private void registerButtonAction(ActionEvent event) {
-    
+     UserDao userDao = new UserDao();
+    	User newUser =null;
     	if (PassField.getText()==ConfrimPassField.getText())
     	{
     		if (MaleCheckBox.is)
     		{
-    			User newUser = new User(PhoneNumTxt.getText(),
+    		   newUser = new User(PhoneNumTxt.getText(),
 						NameTxt.getText(),
 						CountryComboBox.getValue(),
 						PassField.getText(), 
@@ -103,15 +105,39 @@ public class RegisterController implements Initializable {
 						UserStatus.AVAILABLE ,
 						imageView.getb,
 						BioTxtArea.getText(),
-						'',
-						dateOfBirth,
-						email);
+						'M',
+						BirthdateCalender,
+						EmailTxt.getText()
+						);
     		}
     		else if(FemaleCheckBox)
     		{
-    			
+    			 newUser = new User(PhoneNumTxt.getText(),
+ 						NameTxt.getText(),
+ 						CountryComboBox.getValue(),
+ 						PassField.getText(), 
+ 						"True",
+ 						UserStatus.AVAILABLE ,
+ 						imageView.getb,
+ 						BioTxtArea.getText(),
+ 						'F',
+ 						BirthdateCalender,
+ 						EmailTxt.getText()
+ 						);
+    		}
+    		if(userDao.retrieveByPhoneNumber(newUser.getPhoneNumber())==null)
+    		{
+    			userDao.persist(newUser);
+    		}
+    		else
+    		{
+    			System.out.print("a user is retrived");
     		}
     		
+    	}
+    	else
+    	{
+    		System.out.print("password is note the same");
     	}
     	
     }

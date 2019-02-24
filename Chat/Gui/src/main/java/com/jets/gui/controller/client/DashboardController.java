@@ -69,7 +69,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
-
+import javafx.geometry.NodeOrientation;
 public class DashboardController implements Initializable {
 
 	// @FXML
@@ -119,7 +119,8 @@ public class DashboardController implements Initializable {
 	private ImageView signOutButton;
 	@FXML
 	private ImageView profileIcone;
-
+	@FXML
+	private ImageView textSetting;
 	private VBox contactBox;
 	private Media sound;
 	private MediaPlayer player;
@@ -198,14 +199,15 @@ public class DashboardController implements Initializable {
 			if (flag == MESSAGE_SENT) 
 			{
 				//chat.setAlignment(Pos.BASELINE_RIGHT);
-				chatArea.setAlignment(Pos.BASELINE_RIGHT);
+				chat.setNodeOrientation(NodeOrientation.LEFT_TO_RIGHT);
 				chatArea.getChildren().add(chat);
 				chatArea.setSpacing(15);
 			} 
 			else if (flag == MESSAGE_RECEIVED) 
 			{
 				//chat.setAlignment(Pos.BASELINE_LEFT);
-				chatArea.setAlignment(Pos.BASELINE_LEFT);
+				//chatArea.setAlignment(Pos.BASELINE_LEFT);
+				chat.setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);
 				chatArea.getChildren().add(chat);
 				chatArea.setSpacing(15);
 			}
@@ -240,7 +242,7 @@ public class DashboardController implements Initializable {
 	}
 
 	
-	public void loadContacts()//session managment
+	public void loadContacts(List<Friend> listfriends)//session managment
 	{
 		UserSettings userSetting =new UserSettings(); 
 		
@@ -251,7 +253,7 @@ public class DashboardController implements Initializable {
 	///edit on network interace -__-
 		
 		FriendsDao friendsDao= new FriendsDao(user);
-		List<Friend> listfriends = friendsDao.retrieveAllFriends();
+		 = friendsDao.retrieveAllFriends();
 		
 		
 		for (int i = 0; i < listfriends.size(); i++) {
@@ -387,9 +389,9 @@ public class DashboardController implements Initializable {
 		});
 		appearOffline.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
-			public void handle(ActionEvent event) {  //add in enum offline
+			public void handle(ActionEvent event) {  
 				
-				/*try {
+				try {
 					userSettings.updateStatus(UserStatus.OFFLINE);
 				}  catch (RemoteException e) {
 					
@@ -397,7 +399,7 @@ public class DashboardController implements Initializable {
 				} catch (UpdateUserFailedException e) {
 					
 					e.printStackTrace();
-				}*/
+				}
 			}
 		});
 		changeStatuesButton.setOnMousePressed(new EventHandler<MouseEvent>() {
@@ -417,13 +419,30 @@ public class DashboardController implements Initializable {
 
 	}
 
-	public void showGroups() 
+	public void addGroups() 
 	{
 		groupButton.setOnMousePressed(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
 				Swing swing = new Swing(groupButton);
 				swing.play();
+				FXMLLoader chatloader = new FXMLLoader();
+				Parent loader;
+				try {
+					AddNewGroupController controller = new AddNewGroupController();
+					chatloader.setController(controller);
+					loader = chatloader
+							.load(getClass().getResource("/client/dashboard/addNewGroup.fxml").openStream());
+					Stage newStage = new Stage();
+					newStage.setScene(new Scene(loader));
+					newStage.setMaxHeight(400);
+					newStage.setMaxWidth(700);
+					newStage.setMinHeight(400);
+					newStage.setMinWidth(700);
+					newStage.show();
+				} catch (IOException ex) {
+					ex.printStackTrace();
+				}
 
 			}
 		});
@@ -465,6 +484,23 @@ public class DashboardController implements Initializable {
 			public void handle(MouseEvent event) {
 				Swing swing = new Swing(requestsNotificationButton);
 				swing.play();
+				FXMLLoader chatloader = new FXMLLoader();
+				Parent loader;
+				try {
+					ListFriendController controller = new ListFriendController();
+					chatloader.setController(controller);
+					loader = chatloader
+							.load(getClass().getResource("/client/requestNotification/FXMLlistFriendNotification.fxml").openStream());
+					Stage newStage = new Stage();
+					newStage.setScene(new Scene(loader));
+					newStage.setMaxHeight(400);
+					newStage.setMaxWidth(700);
+					newStage.setMinHeight(400);
+					newStage.setMinWidth(700);
+					newStage.show();
+				} catch (IOException ex) {
+					ex.printStackTrace();
+				}
 
 			}
 		});
@@ -477,7 +513,7 @@ public class DashboardController implements Initializable {
 			public void handle(MouseEvent event) {
 				Swing swing = new Swing(notificationStatuesButton);
 				swing.play();
-				sound = new Media(new File(
+				/*sound = new Media(new File(
 						"C:\\Users\\PC\\Documents\\NetBeansProjects\\JavaChatApp\\Chat\\Gui\\src\\main\\resources\\client\\dashboard\\sound.mp3")
 								.toURI().toString());
 				player = new MediaPlayer(sound);
@@ -486,9 +522,25 @@ public class DashboardController implements Initializable {
 						.text("saved in : E/newfolder").hideAfter(Duration.seconds(5)).graphic(null)
 						.position(Pos.BOTTOM_RIGHT);
 
-				notification.showInformation();
-
-
+				notification.showInformation();*/
+				
+				FXMLLoader chatloader = new FXMLLoader();
+				Parent loader;
+				try {
+					ListStatusController controller = new ListStatusController();
+					chatloader.setController(controller);
+					loader = chatloader
+							.load(getClass().getResource("/client/statuesNotification/FXMLItemStatusNotification.fxml").openStream());
+					Stage newStage = new Stage();
+					newStage.setScene(new Scene(loader));
+					newStage.setMaxHeight(400);
+					newStage.setMaxWidth(700);
+					newStage.setMinHeight(400);
+					newStage.setMinWidth(700);
+					newStage.show();
+				} catch (IOException ex) {
+					ex.printStackTrace();
+				}
 			}
 		});
 
@@ -532,8 +584,7 @@ public class DashboardController implements Initializable {
 		try {
 			List<Friend> retrievedList = searchByName.searchFriend(searchArea.getText());
 			for (int i = 0; i < retrievedList.size(); i++) 
-			{
-				
+			{				
 				FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/client/dashboard/contact.fxml"));
 				DashboardController controller = new DashboardController();
 				fxmlLoader.setController(controller);
@@ -571,8 +622,6 @@ public class DashboardController implements Initializable {
 				}
 
 			}
-
-			
 			
 		} catch (RemoteException e) {
 			
@@ -583,8 +632,6 @@ public class DashboardController implements Initializable {
 	 * for animation only
 	 */
 	public void setMenu() {
-		
-		
 		contactArea.setOnMousePressed(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
@@ -593,7 +640,36 @@ public class DashboardController implements Initializable {
 				
 			}
 		});
+	}
+	public void addTextSetting()	
+	{
+		textSetting.setOnMousePressed(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent event) {
+				Swing swing = new Swing(textSetting);
+				swing.play();				
+				FXMLLoader chatloader = new FXMLLoader();
+				Parent loader;
+				try {
+					TextSettingController controller = new TextSettingController ();
+					chatloader.setController(controller);
+					loader = chatloader
+							.load(getClass().getResource("/client/dashboard/textSetting.fxml").openStream());
+					Stage newStage = new Stage();
+					newStage.setScene(new Scene(loader));
+					newStage.setMaxHeight(400);
+					newStage.setMaxWidth(700);
+					newStage.setMinHeight(400);
+					newStage.setMinWidth(700);
+					newStage.show();
+				} catch (IOException ex) {
+					ex.printStackTrace();
+				}
+				
 
+
+			}
+		});
 	}
 	/**
 	 * for sending files by current user

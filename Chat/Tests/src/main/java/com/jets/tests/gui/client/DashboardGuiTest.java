@@ -4,6 +4,7 @@ package com.jets.tests.gui.client;
 import com.jets.gui.controller.client.DashboardController;
 
 import animatefx.animation.Swing;
+//import animatefx.animation.Swing;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -24,6 +25,7 @@ public class DashboardGuiTest extends Application {
         GridPane root=fxmlLoader.load();
         Swing swingMotion = new Swing(root);
         swingMotion.play();
+        
         Scene scene=new Scene(root, 1210, 700);
         primaryStage.setMinWidth(1200);
         primaryStage.setMinHeight(700);
