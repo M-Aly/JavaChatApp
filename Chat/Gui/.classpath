@@ -29,7 +29,7 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="src" path="/Database"/>
-	<classpathentry kind="lib" path="E:/testing/JavaChatApp/Chat/Gui/src/main/resources/client/dashboard/AnimateFX-1.2.0.jar"/>
 	<classpathentry kind="src" path="/Network"/>
+	<classpathentry kind="lib" path="C:/Users/Aly/Documents/NetBeansProjects/ChatProject/Chat/Gui/src/main/resources/client/dashboard/AnimateFX-1.2.0.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
