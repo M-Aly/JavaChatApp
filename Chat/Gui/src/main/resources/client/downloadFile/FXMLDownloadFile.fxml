@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="309.0" prefWidth="486.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.jets.gui.controller.DownloadFileController">
+<AnchorPane id="AnchorPane" prefHeight="309.0" prefWidth="486.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.jets.gui.controller.client.DownloadFileController">
     <children>
         <Button fx:id="startButton" layoutX="173.0" layoutY="247.0" prefHeight="25.0" prefWidth="190.0" text="Download File" />
         <Label fx:id="label" layoutX="126" layoutY="120" minHeight="16" minWidth="69" />
