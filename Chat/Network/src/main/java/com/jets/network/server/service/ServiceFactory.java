@@ -2,14 +2,16 @@ package com.jets.network.server.service;
 
 import java.io.FileReader;
 import java.io.IOException;
+import java.rmi.AccessException;
+import java.rmi.NotBoundException;
 import java.rmi.Remote;
+import java.rmi.RemoteException;
 import java.rmi.registry.Registry;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
 
-import com.jets.network.common.RmiConnection;
 import com.jets.network.exception.NoSuchServiceException;
 
 /**
@@ -66,6 +68,25 @@ public class ServiceFactory {
     
     public void startServices() {
     	startServices(DEFAULT_FILE);
+    }
+    
+    public void stopServices() {
+		Registry registry=RmiConnection.getInstance().getRegistry();
+    	for(String serviceName:serviceMap.keySet()) {
+    		try {
+				registry.unbind(serviceName);
+			}
+    		catch (AccessException ex) {
+				ex.printStackTrace();
+			}
+    		catch (RemoteException ex) {
+				ex.printStackTrace();
+			}
+    		catch (NotBoundException ex) {
+				ex.printStackTrace();
+			}
+    		serviceMap.remove(serviceName);
+    	}
     }
     
     public Map<String,Remote> getServices() {

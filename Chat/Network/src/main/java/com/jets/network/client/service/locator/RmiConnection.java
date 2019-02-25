@@ -1,4 +1,4 @@
-package com.jets.network.common;
+package com.jets.network.client.service.locator;
 
 import java.io.FileReader;
 import java.io.IOException;
@@ -10,7 +10,7 @@ import java.util.Properties;
  * used to connect to the rmi server
  * @author Mohamed Ali
  */
-public class RmiConnection {
+class RmiConnection {
 	private static RmiConnection rmiConnection;
 	private Registry registry;
     private static final String HOST="host";

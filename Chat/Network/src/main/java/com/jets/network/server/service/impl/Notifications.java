@@ -1,6 +1,7 @@
 package com.jets.network.server.service.impl;
 
 import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,8 +10,12 @@ import com.jets.network.common.callback.NotifcationReceiverInt;
 import com.jets.network.common.serverservice.NotificationsInt;
 import com.jets.network.exception.NoSuchUserException;
 
-public class Notifications implements NotificationsInt{
+public class Notifications extends UnicastRemoteObject implements NotificationsInt{
 	
+	public Notifications() throws RemoteException {
+		super();
+	}
+
 	ArrayList<NotifcationReceiverInt> friends = new ArrayList<>();
 
 	@Override

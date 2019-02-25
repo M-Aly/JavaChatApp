@@ -5,7 +5,6 @@ import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.rmi.registry.Registry;
 
-import com.jets.network.common.RmiConnection;
 import com.jets.network.exception.NoSuchServiceException;
 import com.jets.network.exception.ConnectionException;
 

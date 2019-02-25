@@ -8,13 +8,20 @@
 
 package com.jets.message;
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.GregorianCalendar;
 import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
+import javax.xml.datatype.DatatypeConfigurationException;
+import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
 
 
@@ -45,6 +52,9 @@ import javax.xml.datatype.XMLGregorianCalendar;
  * &lt;/complexType>
  * </pre>
  * 
+ * @author Zainab
+ * @author Mohamed Ali
+ * 
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -61,7 +71,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
     "italic",
     "underline"
 })
-public class MsgContent {
+public class MsgContent implements Serializable {
 
     @XmlElement(required = true)
     protected String from;
@@ -348,6 +358,41 @@ public class MsgContent {
      */
     public void setUnderline(Boolean value) {
         this.underline = value;
+    }
+    
+    private void writeObject(ObjectOutputStream out) throws IOException {
+    	out.writeUTF(from);
+    	out.writeObject(to);
+    	out.writeObject(date.toGregorianCalendar());
+    	out.writeUTF(body);
+    	out.writeUTF(fontStyle);
+    	out.writeUTF(fontColor);
+    	out.writeUTF(textBackground);
+    	out.writeUTF(fontSize);
+    	out.writeBoolean(bold);
+    	out.writeBoolean(italic);
+    	out.writeBoolean(underline);
+    }
+    private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
+    	from=in.readUTF();
+    	to=(List<String>)in.readObject();
+    	DatatypeFactory datatypeFactory;
+		try {
+			datatypeFactory = DatatypeFactory.newInstance();
+			GregorianCalendar gregorianCalendar=(GregorianCalendar)in.readObject();
+	    	date=datatypeFactory.newXMLGregorianCalendar(gregorianCalendar);
+		}
+		catch (DatatypeConfigurationException ex) {
+			ex.printStackTrace();
+		}
+    	body=in.readUTF();
+    	fontStyle=in.readUTF();
+    	fontColor=in.readUTF();
+    	textBackground=in.readUTF();
+    	fontSize=in.readUTF();
+    	bold=in.readBoolean();
+    	italic=in.readBoolean();
+    	underline=in.readBoolean();
     }
 
 }

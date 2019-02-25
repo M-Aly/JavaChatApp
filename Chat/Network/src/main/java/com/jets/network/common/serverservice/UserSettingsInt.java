@@ -20,32 +20,27 @@ public interface UserSettingsInt extends Remote {
     void updateProfile(User user) throws RemoteException,UpdateUserFailedException;
     
     /**
-    update status
-    */
-    void updateStatus(UserStatus userStatus) throws RemoteException,UpdateUserFailedException;
-    
-    /**
     add friend
     */
-    void addFriend(Friend friend) throws RemoteException,UpdateUserFailedException;
+    void addFriend(User user,Friend friend) throws RemoteException,UpdateUserFailedException;
     
     /**
     remove friend
     */
-    void removeFriend(Friend friend) throws RemoteException,UpdateUserFailedException;
+    void removeFriend(User user,Friend friend) throws RemoteException,UpdateUserFailedException;
     
     /**
     add friends
     */
-    void addFriends(List<Friend> friends) throws RemoteException,UpdateUserFailedException;
+    void addFriends(User user,List<Friend> friends) throws RemoteException,UpdateUserFailedException;
     
     /**
     add group
     */
-    void addGroup(Group group) throws RemoteException,UpdateUserFailedException;
+    void addGroup(User user,Group group) throws RemoteException,UpdateUserFailedException;
     
     /**
     remove group
     */
-    void removeGroup(Group group) throws RemoteException,UpdateUserFailedException;
+    void removeGroup(User user,Group group) throws RemoteException,UpdateUserFailedException;
 }

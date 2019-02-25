@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 import java.sql.SQLException;
 
 import com.jets.database.dal.dao.impl.FriendsDao;
@@ -22,14 +23,12 @@ import com.jets.network.exception.StatusChangeFailedException;
  *
  * @author Amer Salah
  */
-public class IntroduceUser implements IntroduceUserInt{
+public class IntroduceUser extends UnicastRemoteObject implements IntroduceUserInt{
 
 	UserDao userInfo;
-	User user;
 	
-	public IntroduceUser(User user) {
+	public IntroduceUser()  throws RemoteException{
 		
-		this.user=user;	
 		userInfo = new UserDao();
 	}
 	

@@ -24,20 +24,11 @@ public class UserSettings implements UserSettingsInt {
 	UserDao currentUser;
 	FriendsDao currentFriend;
 	GroupDao groupobj;
-	User user;
 	
 	
-	public UserSettings(User user) {
+	public UserSettings() {
 		
-		this.user=user;
 		currentUser = new UserDao();
-		currentFriend = new FriendsDao(user);
-		try {
-			groupobj = new GroupDao(user.getPhoneNumber());
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		
 	}
 	
@@ -59,23 +50,10 @@ public class UserSettings implements UserSettingsInt {
 	}
 
 	@Override
-	public void updateStatus(UserStatus userStatus) throws RemoteException, UpdateUserFailedException {
-	
-		try {
-			
-			user.setStatus(userStatus);
-			currentUser.update(user);
-			
-		}catch(SQLException e) {
-			throw new UpdateUserFailedException();
-		}
-		
-	}
-
-	@Override
-	public void addFriend(Friend friend) throws RemoteException, UpdateUserFailedException {
+	public void addFriend(User user,Friend friend) throws RemoteException, UpdateUserFailedException {
 		
 		try {
+			currentFriend = new FriendsDao(user);
 			currentFriend.persist(friend);
 		} catch (SQLException e) {
 			
@@ -85,8 +63,9 @@ public class UserSettings implements UserSettingsInt {
 	}
 
 	@Override
-	public void removeFriend(Friend friend) throws RemoteException,UpdateUserFailedException {
+	public void removeFriend(User user,Friend friend) throws RemoteException,UpdateUserFailedException {
 		try {
+			currentFriend = new FriendsDao(user);
 			currentFriend.delete(friend.getPhoneNumber());
 		} catch (SQLException e) {
 			
@@ -97,7 +76,8 @@ public class UserSettings implements UserSettingsInt {
 	}
 
 	@Override
-	public void addFriends(List<Friend> friends) throws RemoteException, UpdateUserFailedException {
+	public void addFriends(User user,List<Friend> friends) throws RemoteException, UpdateUserFailedException {
+		currentFriend = new FriendsDao(user);
 		for(int i=0 ;i<friends.size();i++) {
 		try {
 			
@@ -110,9 +90,10 @@ public class UserSettings implements UserSettingsInt {
 	}
 
 	@Override
-	public void addGroup(Group group) throws RemoteException, UpdateUserFailedException {
+	public void addGroup(User user,Group group) throws RemoteException, UpdateUserFailedException {
 		
 		try {
+			groupobj = new GroupDao(user.getPhoneNumber());
 			groupobj.persist(group);
 		} catch (SQLException e) {
 			throw new  UpdateUserFailedException();
@@ -120,8 +101,9 @@ public class UserSettings implements UserSettingsInt {
 	}
 
 	@Override
-	public void removeGroup(Group group) throws RemoteException, UpdateUserFailedException {
+	public void removeGroup(User user,Group group) throws RemoteException, UpdateUserFailedException {
 		try {
+			groupobj = new GroupDao(user.getPhoneNumber());
 			groupobj.delete(group.getGroupId());
 		} catch (SQLException e) {
 			throw new  UpdateUserFailedException();

@@ -1,6 +1,7 @@
 package com.jets.network.server.service.impl;
 
 import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 import java.util.List;
 
 import com.jets.database.dal.dao.impl.FriendsDao;
@@ -14,7 +15,11 @@ import com.jets.network.common.serverservice.SearchInt;
  * @author Nouran Amr
  *
  */
-public class Search implements SearchInt {
+public class Search extends UnicastRemoteObject implements SearchInt {
+
+	public Search() throws RemoteException {
+		super();
+	}
 
 	FriendsDao friend;
 	GroupDao group;
