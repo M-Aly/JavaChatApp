@@ -24,6 +24,26 @@ public class UserSettings implements UserSettingsInt {
 	UserDao currentUser;
 	FriendsDao currentFriend;
 	GroupDao groupobj;
+	User user;
+	
+	
+	public UserSettings(User user) {
+		
+		this.user=user;
+		currentUser = new UserDao();
+		currentFriend = new FriendsDao(user);
+		try {
+			groupobj = new GroupDao(user.getPhoneNumber());
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	
+	
+	
+	
 	@Override
 	public void updateProfile(User user) throws RemoteException, UpdateUserFailedException {
 		
@@ -41,12 +61,20 @@ public class UserSettings implements UserSettingsInt {
 	@Override
 	public void updateStatus(UserStatus userStatus) throws RemoteException, UpdateUserFailedException {
 	
-		//not implement yet
+		try {
+			
+			user.setStatus(userStatus);
+			currentUser.update(user);
+			
+		}catch(SQLException e) {
+			throw new UpdateUserFailedException();
+		}
 		
 	}
 
 	@Override
 	public void addFriend(Friend friend) throws RemoteException, UpdateUserFailedException {
+		
 		try {
 			currentFriend.persist(friend);
 		} catch (SQLException e) {

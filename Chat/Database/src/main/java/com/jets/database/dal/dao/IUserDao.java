@@ -1,6 +1,8 @@
 package com.jets.database.dal.dao;
 
 import java.util.List;
+import java.util.Map;
+
 import com.jets.database.dal.dto.User;
 import java.sql.SQLException;
 
@@ -36,4 +38,36 @@ public interface IUserDao{
     validate phone number and password
     */
     User retrieveByPassword(String phoneNumber,String password) throws SQLException;
+
+    /**
+     * count all Online Users for Statistics
+     
+    
+    int countOnlineUsers()throws SQLException;
+    
+    
+    /**
+     * count all Offline Users for Statistics
+     
+    int countOfflineUsers()throws SQLException;
+    
+    
+    /**
+     * count all Male Users for Statistics
+     
+    int countMaleUsers()throws SQLException;
+    
+    
+    /**
+     * count all Female Users for Statistics
+     
+    int countFemaleUsers()throws SQLException;
+    
+    
+    /**
+     * get All Countries for all users for Statistics
+     
+    Map<String, Integer> getUserCountries()throws SQLException;
+    
+    */
 }

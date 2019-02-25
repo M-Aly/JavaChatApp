@@ -7,15 +7,25 @@ package com.jets.network.common.callback.impl;
 
 
 import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 
 import com.jets.network.common.callback.AnnouncementReceiverInt;
 import com.jets.network.common.serverservice.AnnouncementsInt;
 import com.jets.network.exception.NoSuchUserException;
 
-public class Announcement implements AnnouncementsInt {
+/**
+ * @author Amer Salah
+ */
+
+public class Announcement  extends UnicastRemoteObject implements AnnouncementsInt {
 	
 	
+	public Announcement() throws RemoteException {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
 	ArrayList<AnnouncementReceiverInt> users = new ArrayList<>();
 
 	@Override

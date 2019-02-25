@@ -11,11 +11,18 @@ import com.jets.network.exception.StatusChangeFailedException;
 
 /**
  *
- * @author Amer
+ * @author Amer Salah
  */
 public class IntroduceUser implements IntroduceUserInt{
 
 	UserDao userInfo;
+	User user;
+	
+	public IntroduceUser(User user) {
+		
+		this.user=user;	
+		userInfo = new UserDao();
+	}
 	
 	
 	@Override
@@ -30,7 +37,22 @@ public class IntroduceUser implements IntroduceUserInt{
 
 	@Override
 	public User logIn(String phoneNumber, String password) throws RemoteException {
-		return null;
+		
+		try {
+			if(userInfo.retrieveByPhoneNumber(phoneNumber)!=null)
+                 {
+	                    if(user.getPassword()==password)
+	                    {
+	                    	return 
+	                    }
+                 }
+			
+		}catch(SQLException e) {
+			
+			
+		}
+		
+		
 	}
 
 	@Override

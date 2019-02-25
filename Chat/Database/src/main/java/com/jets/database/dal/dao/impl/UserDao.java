@@ -7,7 +7,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.jets.database.controller.impl.ConnectionMySql;
 import com.jets.database.dal.dao.IUserDao;
@@ -22,6 +24,7 @@ import com.jets.database.exception.InvalidInputException;
  * @author Mayada Khaled
  * @author Mohamed Ali
  * @author Nouran Amr
+ * @author Amer Salah
  */
 public class UserDao implements IUserDao {
 
@@ -242,4 +245,127 @@ public class UserDao implements IUserDao {
 			}
 		}
 	}
+
+	/*
+	@Override
+	public int countOnlineUsers() throws SQLException {
+		
+		int counter = 0;
+		String sqlQuery = "select status from user";
+		try {
+			statement = connection.prepareStatement(sqlQuery);
+			result = statement.executeQuery();
+			while(result.next()) {
+				
+				if(!result.getString(0).equals(UserStatus.OFFLINE))
+				{
+					counter++;
+				}
+			}
+			
+		}catch(SQLException e) {
+			
+			e.printStackTrace();
+		}
+		
+		return counter;
+		
+	}
+
+	@Override
+	public int countOfflineUsers() throws SQLException {
+		int counter = 0;
+		String sqlQuery = "select status from user";
+		try {
+			statement = connection.prepareStatement(sqlQuery);
+			result = statement.executeQuery();
+			while(result.next()) {
+				
+				if(result.getString(0).equals(UserStatus.OFFLINE))
+				{
+					counter++;
+				}
+			}
+			
+		}catch(SQLException e) {
+			
+			e.printStackTrace();
+		}
+		
+		return counter;
+	}
+
+	@Override
+	public int countMaleUsers() throws SQLException {
+		
+		int counter = 0;
+		String sqlQuery = "select gender from user";
+		try {
+			statement = connection.prepareStatement(sqlQuery);
+			result = statement.executeQuery();
+			while(result.next()) {
+				
+				if(result.getString(0).toLowerCase().equals("m"))
+				{
+					counter++;
+				}
+			}
+			
+		}catch(SQLException e) {
+			
+			e.printStackTrace();
+		}
+		
+		return counter;
+		
+	}
+
+	@Override
+	public int countFemaleUsers() throws SQLException {
+		int counter = 0;
+		String sqlQuery = "select gender from user";
+		try {
+			statement = connection.prepareStatement(sqlQuery);
+			result = statement.executeQuery();
+			while(result.next()) {
+				
+				if(result.getString(0).toLowerCase().equals("f"))
+				{
+					counter++;
+				}
+			}
+			
+		}catch(SQLException e) {
+			
+			e.printStackTrace();
+		}
+		
+		return counter;
+	}
+
+	@Override
+	public Map<String, Integer> getUserCountries() throws SQLException {
+		
+		Map<String , Integer> countries = new HashMap<>();
+		String sqlQuery = "select country from user";
+		
+		try {
+			statement = connection.prepareStatement(sqlQuery);
+			result = statement.executeQuery();
+			while(result.next()) {
+				
+				if(result.getString(0).toLowerCase().equals("f"))
+				{
+					
+				}
+			}
+			
+		}catch(SQLException e) {
+			
+			e.printStackTrace();
+		}
+		
+		return countries;
+	}
+	*/
 }
