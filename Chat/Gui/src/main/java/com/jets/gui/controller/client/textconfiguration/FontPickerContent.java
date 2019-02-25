@@ -1,4 +1,4 @@
-package com.jets.gui.controller.client;
+package com.jets.gui.controller.client.textconfiguration;
 import javafx.collections.FXCollections;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;

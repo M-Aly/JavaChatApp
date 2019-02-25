@@ -7,6 +7,9 @@ package com.jets.gui.controller.client;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import com.jets.gui.controller.client.textconfiguration.FontPicker;
+
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;

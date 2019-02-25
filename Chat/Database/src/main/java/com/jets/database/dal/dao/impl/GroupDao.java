@@ -192,6 +192,28 @@ public class GroupDao implements IGroupDao {
         			groupList.add(group);
             	}
             }
+            if(groupList.size()==0) {
+            	groupList=null;
+            }
+            else {
+            	Iterator<Group> groupIterator=groupList.iterator();
+            	List<Group> removeList=new ArrayList<>();
+            	while(groupIterator.hasNext()) {
+            		Group group=groupIterator.next();
+                	boolean found=false;
+                	Iterator<String> friendIterator=group.getFriends().iterator();
+                	while(friendIterator.hasNext() && !found) {
+                		String friendPhoneNumber=friendIterator.next();
+                		if(friendPhoneNumber.equals(userPhoneNumber)) {
+                			found=true;
+                		}
+                	}
+                	if(!found) {
+                		removeList.add(group);
+                	}
+            	}
+            	groupList.removeAll(removeList);
+            }
         }
         catch (SQLException ex) {
         	ex.printStackTrace();

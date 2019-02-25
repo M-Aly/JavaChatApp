@@ -1,4 +1,4 @@
-package com.jets.gui.controller.client;
+package com.jets.gui.controller.client.textconfiguration;
 
 import javafx.scene.control.ComboBoxBase;
 import javafx.scene.control.Skin;

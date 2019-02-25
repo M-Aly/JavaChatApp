@@ -27,6 +27,11 @@ public interface IUserDao{
     it is not the primary key so it returns a list
     */
     List<User> retrieveByName(String name);
+    
+    /**
+    retrieve all users
+    */
+    List<User> retrieveAllUsers();
 
     /**
     update the current user

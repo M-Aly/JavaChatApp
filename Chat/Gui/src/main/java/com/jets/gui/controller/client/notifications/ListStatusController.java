@@ -3,7 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.jets.gui.controller.client;
+package com.jets.gui.controller.client.notifications;
+
 
 import java.io.IOException;
 import java.net.URL;
@@ -11,36 +12,41 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 
 /**
  * FXML Controller class
  *
  * @author lapshop
  */
-public class ListFriendController implements Initializable {
+public class ListStatusController implements Initializable {
 
     @FXML
-    private ListView<VBox> listNotification;
+    private ListView<Label> listNotification;
 
     private VBox itemListView;
+    private Label friendStatus;
+    
+   
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        loadNotification();
+       loadNotification();
 
     }
 
     public void loadNotification() {
         for (int i = 0; i <7; i++) {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/client/requestNotification/FXMLItemRequestNotification.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/client/statuesNotification/FXMLItemStatusNotification.fxml"));
             try {
-                itemListView = fxmlLoader.load();
-                listNotification.getItems().add(itemListView);
+                friendStatus = fxmlLoader.load();
+                listNotification.getItems().add(friendStatus);
 
             } catch (IOException e1) {
 

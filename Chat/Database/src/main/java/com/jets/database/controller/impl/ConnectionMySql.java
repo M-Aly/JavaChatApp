@@ -20,7 +20,7 @@ public class ConnectionMySql implements IDatabaseConnection {
     private static final String DATABASE="DATABASE_NAME";
     private static final String USER="USER_NAME";
     private static final String PASSWORD="PASSWORD";
-    private static final String FILE="C:\\Users\\Aly\\Documents\\NetBeansProjects\\ChatProject\\Chat\\Database\\src\\main\\resources\\resources\\mysql.properties";
+    private static final String FILE="/mysql.properties";
     
     private ConnectionMySql(){
     	try {
