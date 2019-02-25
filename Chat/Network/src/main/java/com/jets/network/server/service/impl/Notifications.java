@@ -28,14 +28,24 @@ public class Notifications implements NotificationsInt{
 	}
 
 	@Override
-	public void sendFriendRequestNotifications(List<Friend> friends) throws RemoteException {
+	public void sendFriendRequestNotifications(List<Friend> friendsRequests) throws RemoteException {
+		
+		for(int i=0 ;i<friendsRequests.size() ; i++)
+		{
+			this.friends.get(i).receiveFriendRequestNotifications(friendsRequests);
+		}
 		
 		
 	}
 
 	@Override
-	public void sendFriendStatusChangeNotifications(List<Friend> friends) throws RemoteException {
-		// TODO Auto-generated method stub
+	public void sendFriendStatusChangeNotifications(List<Friend> friendsNotification) throws RemoteException {
+		
+		
+		for(int i=0 ;i<friendsNotification.size() ; i++)
+		{
+			this.friends.get(i).receiveFriendStatusChangeNotifications(friendsNotification);
+		}
 		
 	}
 
