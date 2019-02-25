@@ -14,8 +14,7 @@ import com.jets.database.dal.dto.Group;
  */
 public class SessionManager {
 	
-	private static SessionManager sessionManager;
-	
+	private static SessionManager sessionManager;	
 	private List<FriendSession> friendSessionList;
 	private List<GroupSession> groupSessionList;
     
