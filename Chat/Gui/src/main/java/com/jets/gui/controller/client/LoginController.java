@@ -9,8 +9,12 @@ package com.jets.gui.controller.client;
 import java.io.IOException;
 import java.net.URL;
 import java.rmi.RemoteException;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
+import com.jets.database.dal.dto.User;
+import com.jets.network.client.service.locator.ServiceLocator;
+import com.jets.network.common.serverservice.IntroduceUserInt;
 import com.jets.network.server.service.impl.IntroduceUser;
 
 import animatefx.animation.FadeIn;
@@ -20,11 +24,6 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.Hyperlink;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -32,6 +31,8 @@ import javafx.stage.Stage;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.layout.Pane;
 
 
 /**
@@ -41,7 +42,7 @@ import javafx.scene.control.*;
 public class LoginController implements Initializable {
     
     @FXML
-    private  AnchorPane AnchorPaneID;
+    private  Pane PaneID;
     
     @FXML
     private  TextField PhoneTxt;
@@ -59,18 +60,15 @@ public class LoginController implements Initializable {
     @FXML
     private  CheckBox RemembermeCheckbox;
     
+    @FXML
+    private  Label Error_lbl;
+    
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-    
-       if(RemembermeCheckbox.isSelected())
-       {
-           //do smothing
-       }
-            
-    } 
-    @FXML
-    public void newAccount()
-    {
+    	
+    	PasswordTxt.setDisable(true);
+    	IntroduceUserInt introduceUser = (IntroduceUserInt)ServiceLocator.getInstance().getService("login");
     	CreateAccountLink.setOnMousePressed(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
@@ -94,26 +92,60 @@ public class LoginController implements Initializable {
 
 			}
 		});
-    }
     
-    @FXML
-    public void handleLoginButtonAction()
-    {
-    	LoginBtn.setOnMousePressed(new EventHandler<MouseEvent>() {
-    		@Override
-			public void handle(MouseEvent event) {
-    			IntroduceUser loginUser = new IntroduceUser();
-    			
-    			try {
-					loginUser.logIn(PhoneTxt.getText(), PasswordTxt.getText());
-				} catch (RemoteException e) {
-					
-					e.printStackTrace();
+       if(RemembermeCheckbox.isSelected())
+       {
+           //do smothing
+       }
+   	PhoneTxt.setOnKeyPressed((e)->{
+   		if (e.getCode() == KeyCode.ENTER) {
+   	       // System.out.println("A key was pressed");
+   	    
+   			
+	     	
+	     	try {
+	     		User user= introduceUser.validate(PhoneTxt.getText());
+	     		if(user!=null) {
+	     			PasswordTxt.setDisable(false);
+				
+	     		}
+			} catch (RemoteException e1) {
+				
+				e1.printStackTrace();
+			}
+   	
+   		}
+   	});
+   		LoginBtn.setOnAction((e)->{
+   			
+   			User user1;
+   			if(!PasswordTxt.getText().isEmpty())
+			try {
+				user1 = introduceUser.logIn(PhoneTxt.getText(), PasswordTxt.getText());
+				if(user1==null)
+				{
+					Error_lbl.setText("Invalid Password");
 				}
-    		
-    	}});
+				else
+					Error_lbl.setText("doneeeeeeeeeeeeeeeeeeeeeeeeeee");
+			} catch (RemoteException e1) {
+				e1.printStackTrace();
+			} catch (SQLException e1) {
+				
+				e1.printStackTrace();
+			}
+			
+   		});
+   	
+   	}
+            
+     
+
+    
    
-    }
+    
+   
+    
   
     
     

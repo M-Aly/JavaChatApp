@@ -15,7 +15,7 @@ class RmiConnection {
 	private Registry registry;
     private static final String HOST="host";
     private static final String PORT="port";
-    private static final String FILE="/rmi.properties";
+    private static final String FILE="C:/rmi.properties";
     
     private RmiConnection(){
     	try {

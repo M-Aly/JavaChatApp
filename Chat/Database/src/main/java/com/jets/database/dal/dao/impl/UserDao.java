@@ -65,6 +65,7 @@ public class UserDao implements IUserDao {
 			statement.setDate(10,newUser.getDateOfBirth());
 			statement.setString(11,newUser.getEmail());
 			statement.executeUpdate();
+			
 		}
 		finally {
 			closeStatement();

@@ -2,6 +2,8 @@ package com.jets.network.common.serverservice;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
+import java.sql.SQLException;
+
 import com.jets.network.exception.NoSuchUserException;
 import com.jets.network.exception.StatusChangeFailedException;
 import com.jets.network.exception.UpdateUserFailedException;
@@ -22,7 +24,12 @@ public interface IntroduceUserInt extends Remote {
     /**
     retrieve user from database and callback if it is the first time to log in
     */
-    User logIn(String phoneNumber,String password) throws RemoteException;
+    User logIn(String phoneNumber,String password) throws RemoteException ,SQLException;
+    
+    /**
+    retrieve user from database and callback if it is the first time to log in
+    */
+    User validate(String phoneNumber) throws RemoteException;
     
     /**
     update status to offline and callback online friends

@@ -21,7 +21,7 @@ import com.jets.network.exception.NoSuchServiceException;
 public class ServiceFactory {
 	
 	private static ServiceFactory serviceFactory;
-	private static final String DEFAULT_FILE="/services.properties";
+	private static final String DEFAULT_FILE="C:/services.properties";
 	private Map<String,Remote> serviceMap = new HashMap<>();
     
     private ServiceFactory(){

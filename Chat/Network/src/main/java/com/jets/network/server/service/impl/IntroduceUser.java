@@ -44,7 +44,7 @@ public class IntroduceUser extends UnicastRemoteObject implements IntroduceUserI
 	}
 
 	@Override
-	public User logIn(String phoneNumber, String password) throws RemoteException {
+	public User logIn(String phoneNumber, String password) throws RemoteException , SQLException {
 		
 		UserDao userDao = new UserDao();
 		User user= null;
@@ -54,7 +54,7 @@ public class IntroduceUser extends UnicastRemoteObject implements IntroduceUserI
 			
 		}catch(SQLException e) {
 			
-			e.printStackTrace();
+			throw new SQLException();
 		}
 		
 		return user;
@@ -101,6 +101,19 @@ public class IntroduceUser extends UnicastRemoteObject implements IntroduceUserI
 		}
 		
 		
+		
+	}
+
+
+	@Override
+	public User validate(String phoneNumber) throws RemoteException{
+		
+		UserDao userDao = new UserDao();
+		User user= null;
+		user = userDao.retrieveByPhoneNumber(phoneNumber);
+		
+		
+		return user;
 		
 	}
     

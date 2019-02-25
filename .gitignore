@@ -40,3 +40,6 @@ Chat/Xml/.classpath
 Chat/Xml/target
 Chat/Xml/bin
 Chat/Database/src/main/resources/mysql.properties
+/Day3_XMLApi4/nbproject/private/
+/Day3_XMLApi4/build/
+/Day3_XMLApi4/dist/

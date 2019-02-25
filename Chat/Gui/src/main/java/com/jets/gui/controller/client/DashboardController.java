@@ -47,6 +47,7 @@ import javafx.scene.control.Label;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.rmi.RemoteException;
@@ -250,7 +251,9 @@ public class DashboardController implements Initializable {
 		addMessage(message, MESSAGE_RECEIVED);
 	}
 
-	
+	/**
+	 * for add friends and groups in the contact list
+	 */
 	public void loadContacts(List<Friend> listfriends)//session managment
 	{
 		UserSettings userSetting =new UserSettings(); 
@@ -259,7 +262,7 @@ public class DashboardController implements Initializable {
 		UserDao currentUser = new UserDao();
 		User user = currentUser.retrieveByPhoneNumber("9380283098");//session managmenttttttttttttttttt
 		//////////
-	///edit on network interace -__-
+	   ///edit on network interace -__-
 		
 		FriendsDao friendsDao= new FriendsDao(user);
 		 = friendsDao.retrieveAllFriends();
@@ -285,6 +288,11 @@ public class DashboardController implements Initializable {
 			    	 imageStates = new Image("/client/dashboard/away.png");
 				 
 			    }
+			    else if (listfriends.get(i).getStatus()==UserStatus.BUSY)
+			    {
+			    	 //imageStates = new Image("/client/dashboard/away.png");  i neeeeed pic for busy
+				 
+			    }
 			    else if (listfriends.get(i).getStatus()==UserStatus.OFFLINE)
 			    {
 			    	imageStates = new Image("/client/dashboard/offline.png");
@@ -301,7 +309,9 @@ public class DashboardController implements Initializable {
 		}
 
 	}
-
+	/**
+	 * for show up user profile and for update his data 
+	 */
 	public void showProfile() {
 		profileIcone.setOnMousePressed(new EventHandler<MouseEvent>() {
 			@Override
@@ -328,7 +338,9 @@ public class DashboardController implements Initializable {
 		});
 
 	}
-
+	/**
+	 * for updating user statues
+	 */
 	public void updateStatus() {
 		Swing swing = new Swing(changeStatuesButton);
 		swing.play();
@@ -345,9 +357,9 @@ public class DashboardController implements Initializable {
 		MenuItem Available = new MenuItem("Available");
 		MenuItem busy = new MenuItem("busy");
 		MenuItem away = new MenuItem("Away");
-		MenuItem appearOffline = new MenuItem("Appear Offline");
+		MenuItem offline = new MenuItem("Offline");
 		
-		contextMenu.getItems().addAll(Available, busy,appearOffline);
+		contextMenu.getItems().addAll(Available, busy,away,offline);
 		
 		Available.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
@@ -396,7 +408,7 @@ public class DashboardController implements Initializable {
 				}
 			}
 		});
-		appearOffline.setOnAction(new EventHandler<ActionEvent>() {
+		offline.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {  
 				
@@ -427,7 +439,9 @@ public class DashboardController implements Initializable {
 		});
 
 	}
-
+	/**
+	 * for creating a new group
+	 */
 	public void addGroups() 
 	{
 		groupButton.setOnMousePressed(new EventHandler<MouseEvent>() {
@@ -457,7 +471,9 @@ public class DashboardController implements Initializable {
 		});
 
 	}
-
+	/**
+	 * for adding new friends
+	 */
 	public void addFriend() {
 		addFriendButton.setOnMousePressed(new EventHandler<MouseEvent>() {
 			@Override
@@ -469,8 +485,7 @@ public class DashboardController implements Initializable {
 				try {
 					AddNewFriendController controller = new AddNewFriendController();
 					chatloader.setController(controller);
-					loader = chatloader
-							.load(getClass().getResource("/client/dashboard/addAnotherPhoneDesgin.fxml").openStream());
+					loader = chatloader.load(getClass().getResource("/client/dashboard/addAnotherPhoneDesgin.fxml").openStream());
 					Stage newStage = new Stage();
 					newStage.setScene(new Scene(loader));
 					newStage.setMaxHeight(400);
@@ -485,8 +500,10 @@ public class DashboardController implements Initializable {
 		});
 
 	}
-
-	public void requestNotification() //add requests
+	/**
+	 * for add request notification
+	 */
+	public void requestNotification()
 	{
 		requestsNotificationButton.setOnMousePressed(new EventHandler<MouseEvent>() {
 			@Override
@@ -515,7 +532,9 @@ public class DashboardController implements Initializable {
 		});
 
 	}
-
+	/**
+	 * for statues notification
+	 */
 	public void notificationStatus() {
 		notificationStatuesButton.setOnMousePressed(new EventHandler<MouseEvent>() {
 			@Override
@@ -569,6 +588,7 @@ public class DashboardController implements Initializable {
 			IntroduceUser user = new IntroduceUser();
 			try {
 				
+				FileOutputStream userPhone = new Fi();
 				user.signOut(retreivedUser);
 				
 			} catch (RemoteException e) {
@@ -650,6 +670,9 @@ public class DashboardController implements Initializable {
 			}
 		});
 	}
+	/**
+	 * for setting text massage configurations
+	 */
 	public void addTextSetting()	
 	{
 		textSetting.setOnMousePressed(new EventHandler<MouseEvent>() {

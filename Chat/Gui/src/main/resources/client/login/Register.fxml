@@ -9,35 +9,41 @@
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane fx:id="AnchorPaneID" prefHeight="592.0" prefWidth="457.0" style="-fx-background-color: WHITE;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.jets.gui.controller.client.RegisterController">
+<AnchorPane fx:id="AnchorPaneID" prefHeight="592.0" prefWidth="457.0" style="-fx-background-color: WHITE;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
    <TextField fx:id="PhoneNumTxt" layoutX="229.0" layoutY="55.0" prefHeight="25.0" prefWidth="174.0" promptText="Phone Number" />
     <TextField fx:id="NameTxt" layoutX="229.0" layoutY="117.0" prefHeight="25.0" prefWidth="174.0" promptText="Name" />
         
         <TextField fx:id="EmailTxt" layoutX="229.0" layoutY="178.0" prefHeight="25.0" prefWidth="174.0" promptText="Email" />
-        <ImageView fx:id="ProfileImageView" fitHeight="85.0" fitWidth="140.0" layoutX="35.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true" />
-        <Button fx:id="UploadPhotobTN" layoutX="60.0" layoutY="117.0" mnemonicParsing="false"  text="Upload Photo" />
+        <ImageView fx:id="ProfileImageView" fitHeight="90.0" fitWidth="130.0" layoutX="59.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@addpic.png" />
+         </image></ImageView>
+        <Button fx:id="UploadPhotobTN" layoutX="60.0" layoutY="117.0" mnemonicParsing="false" text="Upload Photo" />
          <DatePicker fx:id="BirthdateCalender" layoutX="229.0" layoutY="241.0" promptText="Birtdate" />
-        <ComboBox fx:id="CountryComboBox" layoutX="46.0" layoutY="337.0" prefHeight="38.0" prefWidth="187.0" promptText="Country" />
+        <ComboBox fx:id="CountryComboBox" layoutX="46.0" layoutY="352.0" prefHeight="38.0" prefWidth="187.0" promptText="Country" />
        
         <TextArea fx:id="BioTxtArea" layoutX="38.0" layoutY="425.0" prefHeight="105.0" prefWidth="401.0" promptText="bio" />
-        <Button fx:id="RegisterBtn" layoutX="199.0" layoutY="540.0" mnemonicParsing="false"  text="Register" />
+        <Button fx:id="RegisterBtn" layoutX="199.0" layoutY="540.0" mnemonicParsing="false" text="Register" />
         <PasswordField fx:id="PassField" layoutX="46.0" layoutY="178.0" prefHeight="25.0" prefWidth="163.0" promptText="Password" />
         <PasswordField fx:id="ConfrimPassField" layoutX="46.0" layoutY="241.0" prefHeight="25.0" prefWidth="163.0" promptText="Confrim Password" />
-      <RadioButton fx:id="MaleRadioBtn" layoutX="92.0" layoutY="288.0" mnemonicParsing="false" text="Male">
+      <RadioButton fx:id="MaleRadioBtn" layoutX="80.0" layoutY="305.0" mnemonicParsing="false" text="Male">
          <toggleGroup>
             <ToggleGroup fx:id="Gender" />
          </toggleGroup>
       </RadioButton>
-      <RadioButton fx:id="FemaleRadioBtn" layoutX="230.0" layoutY="288.0" mnemonicParsing="false" text="Female" toggleGroup="$Gender" />
+      <RadioButton fx:id="FemaleRadioBtn" layoutX="170.0" layoutY="305.0" mnemonicParsing="false" text="Female" toggleGroup="$Gender" />
       <Label fx:id="Phone_lbl" layoutX="226.0" layoutY="25.0" text="*" textFill="#da0b0b" />
       <Label fx:id="Name_lbl" layoutX="225.0" layoutY="93.0" text="*" textFill="#da0b0b" />
       <Label fx:id="Password_lbl" layoutX="46.0" layoutY="151.0" text="*" textFill="#da0b0b" />
       <Label fx:id="Email_lbl" layoutX="225.0" layoutY="151.0" text="*" textFill="#da0b0b" />
       <Label fx:id="Confirm_lbl" layoutX="46.0" layoutY="215.0" text="*" textFill="#da0b0b" />
       <Label fx:id="Birth_lbl" layoutX="229.0" layoutY="215.0" text="*" textFill="#da0b0b" />
+      <Label fx:id="Bio_lbl" layoutX="43.0" layoutY="408.0" text="*" textFill="#d71919" />
+      <Label fx:id="Country_lbl" layoutX="46.0" layoutY="322.0" text="*" textFill="#d01717" />
    </children>
 </AnchorPane>

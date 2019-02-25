@@ -28,7 +28,6 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="src" path="/Database"/>
-	<classpathentry kind="src" path="/Network"/>
+	<classpathentry kind="lib" path="C:/Users/PC/Downloads/AnimateFX-1.2.0.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
