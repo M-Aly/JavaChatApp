@@ -33,6 +33,7 @@ public class Notifications implements NotificationsInt{
 		for(int i=0 ;i<friendsRequests.size() ; i++)
 		{
 			this.friends.get(i).receiveFriendRequestNotifications(friendsRequests);
+			
 		}
 		
 		
@@ -45,6 +46,7 @@ public class Notifications implements NotificationsInt{
 		for(int i=0 ;i<friendsNotification.size() ; i++)
 		{
 			this.friends.get(i).receiveFriendStatusChangeNotifications(friendsNotification);	
+			
 		}
 		
 	}
