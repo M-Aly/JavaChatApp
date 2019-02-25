@@ -7,9 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import com.jets.database.controller.impl.ConnectionMySql;
 import com.jets.database.dal.dao.IUserDao;
@@ -137,6 +135,10 @@ public class UserDao implements IUserDao {
 						result.getString(11));
 				userList.add(user);
 			}
+			
+			if(userList.size()==0) {
+				userList=null;
+			}
 
 		} catch (SQLException ex) {
 			ex.printStackTrace();
@@ -149,6 +151,14 @@ public class UserDao implements IUserDao {
 		}
 		return userList;
 	}
+	
+	/**
+    retrieve all users
+    */
+	@Override
+    public List<User> retrieveAllUsers() {
+    	return retrieveByName("");
+    }
 	
 	/**
     validate phone number and password

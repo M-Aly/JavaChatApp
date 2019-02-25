@@ -1,4 +1,4 @@
-package com.jets.gui.controller.client;
+package com.jets.gui.controller.client.textconfiguration;
 import com.sun.javafx.scene.control.skin.ComboBoxPopupControl;
 import javafx.scene.Node;
 import javafx.scene.control.Label;

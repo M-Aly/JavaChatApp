@@ -59,7 +59,7 @@ public class FriendsDao implements IFriendsDao {
 	public List<Friend> retrieveAllFriends() {
 		List<Friend> userList = new ArrayList<Friend>();
 		sqlQuery = "SELECT friendphone,invitationstatues FROM user_friend where userphone='"
-				+ user.getPhoneNumber() + "' and invitationstatues like 'ACCEPTED' " ;
+				+ user.getPhoneNumber() + "'" ;
 
 		try {
 			statement = connection.createStatement();
@@ -72,6 +72,10 @@ public class FriendsDao implements IFriendsDao {
 				Friend friend = new Friend(friendUser, InvitationStatus.valueOf(result.getString(2)));
 
 				userList.add(friend);
+			}
+			
+			if(userList.size()==0) {
+				userList=null;
 			}
 
 		}
@@ -106,6 +110,10 @@ public class FriendsDao implements IFriendsDao {
 				Friend friend = new Friend(friendUser, InvitationStatus.valueOf(result.getString(2)));
 
 				userList.add(friend);
+			}
+			
+			if(userList.size()==0) {
+				userList=null;
 			}
 		}
 		catch (SQLException ex) {

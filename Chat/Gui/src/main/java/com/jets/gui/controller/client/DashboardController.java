@@ -11,6 +11,8 @@ import com.jets.database.dal.dto.User;
 import com.jets.database.dal.dto.enums.InvitationStatus;
 import com.jets.database.dal.dto.enums.UserStatus;
 import com.jets.gui.controller.client.DashboardController;
+import com.jets.gui.controller.client.notifications.ListFriendController;
+import com.jets.gui.controller.client.notifications.ListStatusController;
 import com.jets.network.common.serverservice.UserSettingsInt;
 import com.jets.network.exception.StatusChangeFailedException;
 import com.jets.network.exception.UpdateUserFailedException;

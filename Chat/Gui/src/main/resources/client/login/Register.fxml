@@ -1,33 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.Image?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane fx:id="AnchorPaneID" prefHeight="592.0" prefWidth="457.0" style="-fx-background-color: WHITE;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.jets.gui.controller.RegisterController">
+<AnchorPane fx:id="AnchorPaneID" prefHeight="592.0" prefWidth="457.0" style="-fx-background-color: WHITE;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.jets.gui.controller.client.RegisterController">
    <children>
-      <TextField fx:id="PhoneNumTxt" layoutX="229.0" layoutY="98.0" prefHeight="25.0" prefWidth="174.0" promptText="Phone Number" />
-      <TextField fx:id="NameTxt" layoutX="229.0" layoutY="35.0" prefHeight="25.0" prefWidth="174.0" promptText="Name" />
-      <TextField fx:id="EmailTxt" layoutX="229.0" layoutY="165.0" prefHeight="25.0" prefWidth="174.0" promptText="Email" />
-      <ImageView fx:id="imageView" fitHeight="85.0" fitWidth="147.0" layoutX="35.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="60.0">
-         <image>
-            <Image url="@/server/addPerson.png" />
-         </image></ImageView>
-      <Button id="UploadPhotobTN" layoutX="60.0" layoutY="117.0" mnemonicParsing="false" onMouseClicked="#uploadPhotoButtonAction" stylesheets="@/server/buttonStyle.css" text="Upload Photo" />
-      <CheckBox id="MaleCheckBox" layoutX="43.0" layoutY="281.0" mnemonicParsing="false" text="Male" />
-      <CheckBox id="FemaleCheckBox" layoutX="164.0" layoutY="281.0" mnemonicParsing="false" text="Female" />
-      <ComboBox id="CountryComboBox" layoutX="43.0" layoutY="319.0" prefHeight="25.0" prefWidth="163.0" promptText="Country" />
-      <DatePicker id="BirthdateCalender" layoutX="229.0" layoutY="216.0" promptText="Birtdate" />
-      <TextArea id="BioTxtArea" layoutX="33.0" layoutY="360.0" prefHeight="105.0" prefWidth="401.0" promptText="bio" />
-      <Button id="RegisterBtn" layoutX="197.0" layoutY="500.0" mnemonicParsing="false" onMouseClicked="#registerButtonAction" stylesheets="@/server/buttonStyle.css" text="Register" />
-      <PasswordField id="PassField" layoutX="46.0" layoutY="165.0" prefHeight="25.0" prefWidth="163.0" promptText="Password" />
-      <PasswordField id="ConfrimPassField" layoutX="46.0" layoutY="216.0" prefHeight="25.0" prefWidth="163.0" promptText="Confrim Password" />
+   <TextField fx:id="PhoneNumTxt" layoutX="229.0" layoutY="55.0" prefHeight="25.0" prefWidth="174.0" promptText="Phone Number" />
+    <TextField fx:id="NameTxt" layoutX="229.0" layoutY="117.0" prefHeight="25.0" prefWidth="174.0" promptText="Name" />
+        
+        <TextField fx:id="EmailTxt" layoutX="229.0" layoutY="178.0" prefHeight="25.0" prefWidth="174.0" promptText="Email" />
+        <ImageView fx:id="ProfileImageView" fitHeight="85.0" fitWidth="140.0" layoutX="35.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true" />
+        <Button fx:id="UploadPhotobTN" layoutX="60.0" layoutY="117.0" mnemonicParsing="false"  text="Upload Photo" />
+         <DatePicker fx:id="BirthdateCalender" layoutX="229.0" layoutY="241.0" promptText="Birtdate" />
+        <ComboBox fx:id="CountryComboBox" layoutX="46.0" layoutY="337.0" prefHeight="38.0" prefWidth="187.0" promptText="Country" />
+       
+        <TextArea fx:id="BioTxtArea" layoutX="38.0" layoutY="425.0" prefHeight="105.0" prefWidth="401.0" promptText="bio" />
+        <Button fx:id="RegisterBtn" layoutX="199.0" layoutY="540.0" mnemonicParsing="false"  text="Register" />
+        <PasswordField fx:id="PassField" layoutX="46.0" layoutY="178.0" prefHeight="25.0" prefWidth="163.0" promptText="Password" />
+        <PasswordField fx:id="ConfrimPassField" layoutX="46.0" layoutY="241.0" prefHeight="25.0" prefWidth="163.0" promptText="Confrim Password" />
+      <RadioButton fx:id="MaleRadioBtn" layoutX="92.0" layoutY="288.0" mnemonicParsing="false" text="Male">
+         <toggleGroup>
+            <ToggleGroup fx:id="Gender" />
+         </toggleGroup>
+      </RadioButton>
+      <RadioButton fx:id="FemaleRadioBtn" layoutX="230.0" layoutY="288.0" mnemonicParsing="false" text="Female" toggleGroup="$Gender" />
+      <Label fx:id="Phone_lbl" layoutX="226.0" layoutY="25.0" text="*" textFill="#da0b0b" />
+      <Label fx:id="Name_lbl" layoutX="225.0" layoutY="93.0" text="*" textFill="#da0b0b" />
+      <Label fx:id="Password_lbl" layoutX="46.0" layoutY="151.0" text="*" textFill="#da0b0b" />
+      <Label fx:id="Email_lbl" layoutX="225.0" layoutY="151.0" text="*" textFill="#da0b0b" />
+      <Label fx:id="Confirm_lbl" layoutX="46.0" layoutY="215.0" text="*" textFill="#da0b0b" />
+      <Label fx:id="Birth_lbl" layoutX="229.0" layoutY="215.0" text="*" textFill="#da0b0b" />
    </children>
 </AnchorPane>
