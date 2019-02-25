@@ -12,7 +12,7 @@ import java.util.ResourceBundle;
 import com.jets.database.dal.dao.impl.UserDao;
 import com.jets.database.dal.dto.User;
 import com.jets.network.exception.UpdateUserFailedException;
-import com.jets.network.server.impl.UserSettings;
+import com.jets.network.server.service.impl.UserSettings;
 
 import animatefx.animation.Pulse;
 import animatefx.animation.Swing;

@@ -1,4 +1,4 @@
-package com.jets.network.server.impl;
+package com.jets.network.server.service.impl;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -78,7 +78,7 @@ public class ChatSender extends UnicastRemoteObject implements ChatSenderInt {
 			sessionMap.remove(uuid);
 		}
 	}
-
+	
 	@Override
 	public void sendMessage(User senderUser, UUID uuid, String message) throws RemoteException {
 		Set<String> onlineUsers = sessionMap.get(uuid);

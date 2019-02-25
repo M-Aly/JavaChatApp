@@ -1,4 +1,4 @@
-package com.jets.network.server.impl;
+package com.jets.network.server.service.impl;
 
 import java.rmi.RemoteException;
 import java.util.List;

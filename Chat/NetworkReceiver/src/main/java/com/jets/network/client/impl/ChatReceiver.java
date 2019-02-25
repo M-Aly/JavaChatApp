@@ -1,7 +1,6 @@
 package com.jets.network.client.impl;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -12,8 +11,10 @@ import java.util.UUID;
 import com.healthmarketscience.rmiio.RemoteInputStream;
 import com.healthmarketscience.rmiio.RemoteInputStreamClient;
 import com.jets.database.dal.dto.User;
+import com.jets.gui.controller.client.DashboardController;
+import com.jets.network.client.service.locator.ServiceLocator;
 import com.jets.network.common.callback.ChatReceiverInt;
-import com.jets.network.controller.ChatReceiverController;
+import com.jets.network.common.serverservice.ChatSenderInt;
 
 /**
 receive chat messages and files
@@ -22,17 +23,17 @@ receive chat messages and files
 */
 public class ChatReceiver extends UnicastRemoteObject implements ChatReceiverInt {
 
-	private ChatReceiverController chatReceiverController;
+	private DashboardController dashboardController;
+	//private ChatSenderInt chatSender;
 	
-	public ChatReceiver() throws RemoteException {
-		chatReceiverController = new ChatReceiverController();
-		chatReceiverController.setChatReceiver(this);
+	public ChatReceiver(DashboardController dashboardController) throws RemoteException {
+		this.dashboardController=dashboardController;
+		//chatSender = (ChatSenderInt)ServiceLocator.getInstance().getService("chat");
 	}
 	
 	@Override
 	public boolean acceptFile(User senderUser, UUID uuid, File file) throws RemoteException {
-		// TODO Auto-generated method stub
-		return false;
+		return dashboardController.acceptFile(senderUser, uuid, file);
 	}
 
 	@Override
@@ -43,7 +44,7 @@ public class ChatReceiver extends UnicastRemoteObject implements ChatReceiverInt
         boolean readSuccess = false;
         try {
         	istream = RemoteInputStreamClient.wrap(fileStream);
-            File saveFile = chatReceiverController.saveFile(file);
+            File saveFile = dashboardController.saveFile(file);
             if(saveFile != null) {
 	            ostream = new FileOutputStream(saveFile);
 	            int fileLength=(int)file.length();
@@ -51,7 +52,7 @@ public class ChatReceiver extends UnicastRemoteObject implements ChatReceiverInt
 	            int bytesRead = 0;
 	            while ((bytesRead = istream.read(buf)) >= 0) {
 	                ostream.write(buf, 0, bytesRead);
-	                chatReceiverController.updateProgress((double)bytesRead/(double)fileLength);
+	                dashboardController.updateProgress((double)bytesRead/(double)fileLength);
 	            }
 	            ostream.flush();
 	            readSuccess = true;
@@ -80,8 +81,7 @@ public class ChatReceiver extends UnicastRemoteObject implements ChatReceiverInt
 
 	@Override
 	public void receiveMessage(User senderUser, UUID uuid, String message) throws RemoteException {
-		// TODO Auto-generated method stub
-		
+		dashboardController.receiveMessage(senderUser, uuid, message);
 	}
 	
 }

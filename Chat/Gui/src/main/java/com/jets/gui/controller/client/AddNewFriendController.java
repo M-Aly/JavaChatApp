@@ -13,7 +13,7 @@ import com.jets.database.dal.dto.Friend;
 import com.jets.database.dal.dto.User;
 import com.jets.database.dal.dto.enums.InvitationStatus;
 import com.jets.network.exception.UpdateUserFailedException;
-import com.jets.network.server.impl.UserSettings;
+import com.jets.network.server.service.impl.UserSettings;
 
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;

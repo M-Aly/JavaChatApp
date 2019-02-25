@@ -4,7 +4,7 @@ package com.jets.network.exception;
  * connection problem
  * @author Mohamed Ali
  */
-public class ConnectionException extends Exception {
+public class ConnectionException extends RuntimeException {
 	public ConnectionException(){
         super();
     }

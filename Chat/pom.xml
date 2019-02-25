@@ -13,9 +13,10 @@
     <modules>
         <module>Tests</module>
         <module>Database</module>
-	<module>Network</module>
-	<module>Gui</module>
-	<module>Security</module>
-	<module>Xml</module>
+		<module>Network</module>
+		<module>NetworkReceiver</module>
+		<module>Gui</module>
+		<module>Security</module>
+		<module>Xml</module>
     </modules>
 </project>

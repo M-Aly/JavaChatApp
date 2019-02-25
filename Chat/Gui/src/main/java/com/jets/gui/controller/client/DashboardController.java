@@ -16,9 +16,9 @@ import com.jets.gui.controller.client.notifications.ListStatusController;
 import com.jets.network.common.serverservice.UserSettingsInt;
 import com.jets.network.exception.StatusChangeFailedException;
 import com.jets.network.exception.UpdateUserFailedException;
-import com.jets.network.server.impl.IntroduceUser;
-import com.jets.network.server.impl.Search;
-import com.jets.network.server.impl.UserSettings;
+import com.jets.network.server.service.impl.IntroduceUser;
+import com.jets.network.server.service.impl.Search;
+import com.jets.network.server.service.impl.UserSettings;
 import com.jets.*;
 import animatefx.animation.Bounce;
 import animatefx.animation.BounceIn;
@@ -30,6 +30,8 @@ import animatefx.animation.Swing;
 import com.jets.database.dal.dao.impl.FriendsDao;
 import com.jets.database.dal.dao.impl.UserDao;
 import com.jets.database.dal.dto.Friend;
+import com.jets.database.dal.dto.Group;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
@@ -55,10 +57,13 @@ import javafx.util.Duration;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Scanner;
+import java.util.UUID;
+
 import javafx.scene.image.*;
 import javafx.geometry.Pos;
 import javax.swing.text.Position;
 import javafx.scene.Scene;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -126,6 +131,8 @@ public class DashboardController implements Initializable {
 	private VBox contactBox;
 	private Media sound;
 	private MediaPlayer player;
+	
+	private double progress;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -679,4 +686,47 @@ public class DashboardController implements Initializable {
 	public void sendFile() {
 			
 	}
+	
+	public File saveFile(File file) {
+		FileChooser chooser = new FileChooser();
+        chooser.setTitle("Save file");
+        File saveFile = chooser.showSaveDialog(stage);
+        return saveFile;
+	}
+
+	public void updateProgress(double addProgress) {
+		progress = progress+addProgress;
+		// progress bar
+	}
+	
+	public boolean acceptFile(User senderUser, UUID uuid, File file) {
+		return 
+	}
+	
+	public void receiveMessage(User senderUser, UUID uuid, String message) {
+		
+	}
+
+    public void receiveAnnouncement(String announcement) {
+    	
+    }
+    
+    public void receiveFriendRequestNotifications(List<Friend> friends) {
+		
+		
+	}
+
+	public void receiveFriendStatusChangeNotifications(List<Friend> friends) {
+		
+		
+	}
+	
+	public void receiveFriends(List<Friend> friends) {
+		
+	}
+	
+	public void receiveGroups(List<Group> groups) {
+		
+	}
+	
 }

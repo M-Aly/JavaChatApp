@@ -11,7 +11,7 @@ import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.ResourceBundle;
 
-import com.jets.network.server.impl.IntroduceUser;
+import com.jets.network.server.service.impl.IntroduceUser;
 
 import animatefx.animation.FadeIn;
 import animatefx.animation.Swing;

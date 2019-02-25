@@ -28,7 +28,7 @@ import com.jets.database.dal.dto.enums.UserStatus;
 import com.jets.network.common.serverservice.IntroduceUserInt;
 import com.jets.network.exception.NoSuchUserException;
 import com.jets.network.exception.StatusChangeFailedException;
-import com.jets.network.server.impl.IntroduceUser;
+import com.jets.network.server.service.impl.IntroduceUser;
 
 import javafx.beans.InvalidationListener;
 import javafx.collections.FXCollections;

@@ -9,7 +9,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import com.jets.database.dal.dto.Group;
-import com.jets.network.server.impl.UserSettings;
+import com.jets.network.server.service.impl.UserSettings;
 
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;

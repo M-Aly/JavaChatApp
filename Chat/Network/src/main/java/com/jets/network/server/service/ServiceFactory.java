@@ -4,6 +4,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.rmi.Remote;
 import java.rmi.registry.Registry;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
 
@@ -18,6 +20,7 @@ public class ServiceFactory {
 	
 	private static ServiceFactory serviceFactory;
 	private static final String DEFAULT_FILE="/services.properties";
+	private Map<String,Remote> serviceMap = new HashMap<>();
     
     private ServiceFactory(){
     }
@@ -40,6 +43,7 @@ public class ServiceFactory {
         		Object service=Class.forName(serviceClass).newInstance();
         		if(service instanceof Remote) {
         			registry.rebind(serviceName, (Remote)service);
+        			serviceMap.put(serviceName,(Remote)service);
         		}
         		else {
         			throw new NoSuchServiceException("not a Remote object");
@@ -62,5 +66,9 @@ public class ServiceFactory {
     
     public void startServices() {
     	startServices(DEFAULT_FILE);
+    }
+    
+    public Map<String,Remote> getServices() {
+    	return serviceMap;
     }
 }

@@ -18,7 +18,12 @@ Chat/Network/.settings
 Chat/Network/.project
 Chat/Network/.classpath
 Chat/Network/target
-Chat/Network/bin
+Chat/NetworkReceiver/bin
+Chat/NetworkReceiver/.settings
+Chat/NetworkReceiver/.project
+Chat/NetworkReceiver/.classpath
+Chat/NetworkReceiver/target
+Chat/NetworkReceiver/bin
 Chat/Gui/.settings
 Chat/Gui/.project
 Chat/Gui/.classpath

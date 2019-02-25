@@ -6,7 +6,7 @@ import java.util.ResourceBundle;
 
 import com.jets.database.dal.dao.impl.UserDao;
 import com.jets.database.dal.dto.User;
-import com.jets.network.server.impl.IntroduceUser;
+import com.jets.network.server.service.impl.IntroduceUser;
 
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;

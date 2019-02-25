@@ -4,7 +4,7 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 
-import com.jets.network.common.callback.impl.Announcement;
+import com.jets.network.server.service.impl.Announcement;
 
 public class Server {
 	

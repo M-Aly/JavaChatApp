@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import com.jets.network.common.callback.impl.Announcement;
+import com.jets.network.server.service.impl.Announcement;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;

@@ -5,11 +5,11 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 
+import com.jets.network.client.impl.AnnouncementReceiver;
 import com.jets.network.common.callback.AnnouncementReceiverInt;
-import com.jets.network.common.callback.impl.Announcement;
-import com.jets.network.common.callback.impl.AnnouncementReceiver;
 import com.jets.network.common.serverservice.AnnouncementsInt;
 import com.jets.network.exception.NoSuchUserException;
+import com.jets.network.server.service.impl.Announcement;
 
 public class Client {
 	

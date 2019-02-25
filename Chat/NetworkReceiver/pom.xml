@@ -2,7 +2,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.jets</groupId>
-    <artifactId>Tests</artifactId>
+    <artifactId>NetworkReceiver</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
     <properties>
@@ -18,7 +18,7 @@
     <dependencies>
         <dependency>
             <groupId>com.jets</groupId>
-            <artifactId>Database</artifactId>
+            <artifactId>Gui</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
         <dependency>
@@ -26,31 +26,5 @@
             <artifactId>Network</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
-        <dependency>
-            <groupId>com.jets</groupId>
-            <artifactId>NetworkReceiver</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>com.jets</groupId>
-            <artifactId>Gui</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>com.jets</groupId>
-            <artifactId>Security</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>com.jets</groupId>
-            <artifactId>Xml</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
-		<!-- https://mvnrepository.com/artifact/io.github.typhon0/AnimateFX -->
-		<dependency>
-		    <groupId>io.github.typhon0</groupId>
-		    <artifactId>AnimateFX</artifactId>
-		    <version>1.2.0</version>
-		</dependency>
-    </dependencies>
+	</dependencies>
 </project>
