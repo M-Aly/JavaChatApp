@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+
+<Session
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="message.xsd">
+  <Header>Header</Header>
+  <Msg>
+    <from>Zainab</from>
+    <to>Mayadaa</to>
+    <to>Noran</to>
+    <date>2001-01-01</date>
+    <body>Chatting Coversation</body>
+	<fontStyle> Arial </fontStyle>
+    	<fontColor> Red </fontColor>
+    	<textBackground> Red</textBackground>
+    	<fontSize>23</fontSize>
+    	<bold> true</bold>
+    	<italic> true</italic>
+    	<Underline>false </Underline>
+  </Msg>
+
+  <Msg>
+    <from>Zainab</from>
+    <to>Mayadaa</to>
+    <to>Noran</to>
+    <date>2001-01-01</date>
+    <body>body</body>
+
+  </Msg>
+</Session>
+

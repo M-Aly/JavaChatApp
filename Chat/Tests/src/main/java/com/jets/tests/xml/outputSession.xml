@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Session>
+    <Header>frindsChat</Header>
+    <Msg>
+        <from>Zainab</from>
+        <to>Mayadaa</to>
+        <to>Noran</to>
+        <date>2001-01-01</date>
+        <body>Chatting Coversation</body>
+        <fontStyle> Arial </fontStyle>
+        <fontColor> Red </fontColor>
+        <textBackground> Red</textBackground>
+        <fontSize>23</fontSize>
+        <bold>true</bold>
+        <italic>true</italic>
+        <Underline>false</Underline>
+    </Msg>
+    <Msg>
+        <from>Zainab</from>
+        <to>Mayadaa</to>
+        <to>Noran</to>
+        <date>2001-01-01</date>
+        <body>body</body>
+    </Msg>
+    <Msg>
+        <from>zainab</from>
+        <to>Mayadaa</to>
+        <to>Noran</to>
+        <date>2019-06-10+02:00</date>
+        <body>project java will come and we'll die!</body>
+    </Msg>
+</Session>
