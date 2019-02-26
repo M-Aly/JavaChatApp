@@ -86,10 +86,10 @@ public class MsgContent implements Serializable {
     protected String fontColor;
     protected String textBackground;
     protected String fontSize;
-    protected Boolean bold;
-    protected Boolean italic;
+    protected Boolean bold=false;
+    protected Boolean italic=false;
     @XmlElement(name = "Underline")
-    protected Boolean underline;
+    protected Boolean underline=false;
 
     /**
      * Gets the value of the from property.

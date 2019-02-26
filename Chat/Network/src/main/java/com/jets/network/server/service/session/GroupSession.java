@@ -25,7 +25,7 @@ public class GroupSession implements Session {
 		this.userPhoneNumber = userPhoneNumber;
 		this.groupId = group.getGroupId();
 		this.friendList = new ArrayList<String>();
-		setUuid(group.getFriends());
+		this.uuid = UUID.randomUUID();
 	}
 	
 	public final UUID getUuid() {
@@ -56,14 +56,5 @@ public class GroupSession implements Session {
 	
 	public final void removeUser(String userPhoneNumber) {
 		this.friendList.remove(userPhoneNumber);
-	}
-	
-	private final void setUuid(Set<String> friendSet) {
-		StringBuilder phoneNumbers=new StringBuilder();
-		phoneNumbers.append(userPhoneNumber);
-		for(String friend:friendSet) {
-			phoneNumbers.append(friend);
-		}
-		this.uuid = UUID.fromString(phoneNumbers.toString());
 	}
 }
