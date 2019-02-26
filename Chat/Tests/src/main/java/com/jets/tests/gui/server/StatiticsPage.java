@@ -5,6 +5,8 @@
  */
 package com.jets.tests.gui.server;
 
+import com.jets.gui.controller.server.StatisticsController;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -19,7 +21,10 @@ public class StatiticsPage extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("/server/Statisticsform.fxml"));
+    	FXMLLoader loader = new FXMLLoader();
+    	loader.setController(new StatisticsController());
+        Parent root = loader.load(getClass().getResource("/server/Statisticsform.fxml"));
+       //loader.setController(controller);
         
         Scene scene = new Scene(root);
         stage.setTitle("Statistics form");

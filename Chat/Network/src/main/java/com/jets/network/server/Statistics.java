@@ -23,7 +23,7 @@ public class Statistics implements StatisticsInt{
 		int numOfOnlineUsers=0;
 		List<User> users;
 		
-			users = dao.retrieveByName("");
+			users = dao.retrieveAllUsers();
 			for(int i=0 ;i<users.size() ; i++)
 			{
 				if(!users.get(i).getStatus().equals(UserStatus.OFFLINE))
@@ -42,7 +42,7 @@ public class Statistics implements StatisticsInt{
 		int numOfOfflineUsers=0;
 		List<User> users;
 		
-			users = dao.retrieveByName("");
+			users = dao.retrieveAllUsers();
 			for(int i=0 ;i<users.size() ; i++)
 			{
 				if(users.get(i).getStatus().equals(UserStatus.OFFLINE))
@@ -60,7 +60,7 @@ public class Statistics implements StatisticsInt{
 		int numOfMaleUsers=0;
 		List<User> users;
 		
-			users = dao.retrieveByName("");
+			users = dao.retrieveAllUsers();
 			for(int i=0 ;i<users.size() ; i++)
 			{
 				if(users.get(i).getGender()=='m')
@@ -78,7 +78,7 @@ public class Statistics implements StatisticsInt{
 		int numOfFemaleUsers=0;
 		List<User> users;
 		
-			users = dao.retrieveByName("");
+			users = dao.retrieveAllUsers();
 			for(int i=0 ;i<users.size() ; i++)
 			{
 				if(users.get(i).getGender()=='f')
@@ -95,8 +95,8 @@ public class Statistics implements StatisticsInt{
 	public Map<Country, Integer> countUserCountries() {
 		Map<Country , Integer> usersCountries = new HashMap<>();
 		
-		List<User> users = dao.retrieveByName("");
-		int counter= 0 ;
+		List<User> users = dao.retrieveAllUsers();
+		//int counter= 0 ;
 		
 		
 		for(int i=0 ;i< users.size() ; i++)
