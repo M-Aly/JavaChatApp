@@ -42,17 +42,21 @@ import com.jets.network.exception.NoSuchUserException;
 import com.jets.network.exception.StatusChangeFailedException;
 import com.jets.network.server.service.impl.IntroduceUser;
 
+import animatefx.animation.FadeIn;
 import javafx.beans.InvalidationListener;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ToggleGroup;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
@@ -61,6 +65,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import javafx.scene.control.RadioButton;
 import javafx.scene.image.*;
 import javafx.scene.control.Alert;
@@ -215,7 +220,7 @@ public class RegisterController implements Initializable {
 	 	    	BufferedImage bImage= ImageIO.read(profileimage);
 	 	        ImageIO.write(profileimage, "jpg", bos );
 	 	        byte [] data = bos.toByteArray();*/
-	    	  char gender;
+	    	    char gender;
 	    	  	if(Gender.getSelectedToggle().toString().equals("Male"))
 	    	  	{
 	    	  		gender='M';
@@ -240,6 +245,22 @@ public class RegisterController implements Initializable {
 		     	IntroduceUserInt introduceUser = (IntroduceUserInt)ServiceLocator.getInstance().getService("introduce");
 		     	introduceUser.register(user);
 		     	
+		     	FXMLLoader loginloader = new FXMLLoader();
+				Parent loader;
+				try {
+					LoginController controller = new LoginController();
+					loginloader.setController(controller);
+					loader = loginloader
+							.load(getClass().getResource("/client/login/Login.fxml").openStream());
+
+					Stage newStage = new Stage();
+					newStage.setScene(new Scene(loader));
+					newStage.show();
+					//new FadeIn(loader).play();
+				} catch (IOException ex) {
+					ex.printStackTrace();
+				}
+		     	
 		     		
 		     	
 		} catch (InvalidInputException e1) {
@@ -247,7 +268,7 @@ public class RegisterController implements Initializable {
 	        alert.setTitle("Register Error");
 	        alert.setHeaderText("Results:");
 	        alert.setContentText(e1.getMessage());
-	 
+	        //System.out.println(e1.getMessage());
 	        alert.showAndWait();
 		} catch (IOException e1) {
 			
