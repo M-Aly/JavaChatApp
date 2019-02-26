@@ -16,6 +16,7 @@ public class FriendSession implements Session {
 	public FriendSession(String userPhoneNumber, String friendPhoneNumber) {
 		this.userPhoneNumber = userPhoneNumber;
 		setFriendPhoneNumber(friendPhoneNumber);
+		this.uuid = UUID.randomUUID();
 	}
 	
 	public final UUID getUuid() {
@@ -32,6 +33,5 @@ public class FriendSession implements Session {
 	
 	private final void setFriendPhoneNumber(String friendPhoneNumber) {
 		this.friendPhoneNumber = friendPhoneNumber;
-		this.uuid = UUID.fromString(userPhoneNumber+friendPhoneNumber);
 	}
 }

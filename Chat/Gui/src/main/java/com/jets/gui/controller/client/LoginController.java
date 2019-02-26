@@ -6,6 +6,8 @@
 package com.jets.gui.controller.client;
 
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 import java.net.URL;
 import java.rmi.RemoteException;
@@ -68,7 +70,21 @@ public class LoginController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
     	
     	PasswordTxt.setDisable(true);
+    
     	IntroduceUserInt introduceUser = (IntroduceUserInt)ServiceLocator.getInstance().getService("login");
+    	if(RemembermeCheckbox.isSelected()) {
+    	    String line;
+    	    try {
+    	    	 BufferedReader reader = new BufferedReader(new FileReader("c:\\RemeberPassword.txt"));
+			   	while ((line = reader.readLine()) != null)
+				{
+				  PhoneTxt.setText(line);
+				}
+			} catch (IOException e2) {
+				
+				e2.printStackTrace();
+			}
+    	}
     	CreateAccountLink.setOnMousePressed(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {

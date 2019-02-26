@@ -12,6 +12,7 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane fx:id="AnchorPaneID" prefHeight="592.0" prefWidth="457.0" style="-fx-background-color: WHITE;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
@@ -23,12 +24,18 @@
          <image>
             <Image url="@addpic.png" />
          </image></ImageView>
-        <Button fx:id="UploadPhotobTN" layoutX="60.0" layoutY="117.0" mnemonicParsing="false" text="Upload Photo" />
+        <Button fx:id="UploadPhotobTN" layoutX="60.0" layoutY="117.0" mnemonicParsing="false" text="Upload Photo">
+         <font>
+            <Font name="System Bold Italic" size="12.0" />
+         </font></Button>
          <DatePicker fx:id="BirthdateCalender" layoutX="229.0" layoutY="241.0" promptText="Birtdate" />
         <ComboBox fx:id="CountryComboBox" layoutX="46.0" layoutY="352.0" prefHeight="38.0" prefWidth="187.0" promptText="Country" />
        
         <TextArea fx:id="BioTxtArea" layoutX="38.0" layoutY="425.0" prefHeight="105.0" prefWidth="401.0" promptText="bio" />
-        <Button fx:id="RegisterBtn" layoutX="199.0" layoutY="540.0" mnemonicParsing="false" text="Register" />
+        <Button fx:id="RegisterBtn" layoutX="199.0" layoutY="540.0" mnemonicParsing="false" text="Register">
+         <font>
+            <Font name="System Bold Italic" size="12.0" />
+         </font></Button>
         <PasswordField fx:id="PassField" layoutX="46.0" layoutY="178.0" prefHeight="25.0" prefWidth="163.0" promptText="Password" />
         <PasswordField fx:id="ConfrimPassField" layoutX="46.0" layoutY="241.0" prefHeight="25.0" prefWidth="163.0" promptText="Confrim Password" />
       <RadioButton fx:id="MaleRadioBtn" layoutX="80.0" layoutY="305.0" mnemonicParsing="false" text="Male">
