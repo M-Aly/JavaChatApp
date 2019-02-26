@@ -1,3 +1,3 @@
-.background{
-	-fx-background-color: linear-gradient(#86389d,#42abe7, blue);
+#rootPane{
+	-fx-background-image : url("background.png");
 }

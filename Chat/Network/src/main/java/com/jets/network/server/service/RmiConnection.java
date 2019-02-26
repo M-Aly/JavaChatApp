@@ -7,19 +7,21 @@ import java.rmi.registry.Registry;
 import java.util.Properties;
 
 /**
- * used to create the rmi server
+ * used to connect to the rmi server
  * @author Mohamed Ali
  */
-public class RmiConnection {
+class RmiConnection {
 	private static RmiConnection rmiConnection;
 	private Registry registry;
+    private static final String HOST="host";
     private static final String PORT="port";
-    private static final String FILE="C:/rmi.properties";
+    private static final String FILE="/rmi.properties";
     
     private RmiConnection(){
     	try {
     		Properties properties=new Properties();
         	properties.load(new FileReader(FILE));
+        	String host=properties.getProperty(HOST);
         	int port=Integer.parseInt(properties.getProperty(PORT));
         	registry = LocateRegistry.createRegistry(port);
         }

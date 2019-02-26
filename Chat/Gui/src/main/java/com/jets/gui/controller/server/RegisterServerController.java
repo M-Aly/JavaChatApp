@@ -6,7 +6,7 @@
 package com.jets.gui.controller.server;
 
 
-import java.awt.image.RenderedImage;
+
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;

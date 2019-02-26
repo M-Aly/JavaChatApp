@@ -6,12 +6,21 @@
 package com.jets.gui.controller.client;
 
 
+
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.rmi.RemoteException;
 import java.sql.Date;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
@@ -20,11 +29,14 @@ import java.util.ListIterator;
 import java.util.Observable;
 import java.util.ResourceBundle;
 
+import javax.imageio.ImageIO;
 import javax.swing.plaf.basic.BasicBorders.RadioButtonBorder;
 
 import com.jets.database.dal.dto.User;
 import com.jets.database.dal.dto.enums.Country;
 import com.jets.database.dal.dto.enums.UserStatus;
+import com.jets.database.exception.InvalidInputException;
+import com.jets.network.client.service.locator.ServiceLocator;
 import com.jets.network.common.serverservice.IntroduceUserInt;
 import com.jets.network.exception.NoSuchUserException;
 import com.jets.network.exception.StatusChangeFailedException;
@@ -51,6 +63,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 import javafx.scene.control.RadioButton;
 import javafx.scene.image.*;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 
 /**
  *
@@ -61,7 +75,7 @@ public class RegisterController implements Initializable {
 	    private TextField PhoneNumTxt;
 
 	    @FXML
-	    private TextField NameTxt;
+	    private TextField NameTxt=null;
 
 	    @FXML
 	    private TextField EmailTxt;
@@ -113,67 +127,175 @@ public class RegisterController implements Initializable {
 	    
 	    @FXML
 	    private ToggleGroup Gender;
-/*
+
 	    @FXML
-	    private Label gender_lbl;
+	    private Label Gender_lbl;
 	    
 	     @FXML
-	    private Label country_lbl;
+	    private Label Country_lbl;
 	     
 	      @FXML
-	    private Label bio_lbl;
-	      */
+	    private Label Bio_lbl;
+	      
 	       @FXML
-	    private RadioButton maleRadiobtn;
+	    private RadioButton MaleRadioBtn;
 
 	       @FXML
-	    private RadioButton femaleRadiobtn;
-	  
-	   
+	    private RadioButton FemaleRadioBtn;
+	     
+	     Image profileimage;
+	     byte [] imageByte;
+	     boolean photoflag=false;
 	    
-
-	   
-
 	    @Override
 	    public void initialize(URL url, ResourceBundle rb) {
 	    	//IntroduceUser introduceUser=new IntroduceUser() ;
+	    	//MaleRadioBtn.setSelected(false);
+	    	
+	    	
 	    	for(Country country : Country.values()){
 	           CountryComboBox.getItems().add(country.toString());
 	     }
 	    	UploadPhotobTN.setOnAction((e)-> {
 	    		
-	    		   FileChooser fileChooser = new FileChooser();
+	    	   FileChooser fileChooser = new FileChooser();
 	   	        fileChooser.setTitle("Open Image");
 	   	        fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg"));
 	   	        File selectedImage = fileChooser.showOpenDialog(null);
 	   	  
-	   	        Image image = new Image(selectedImage.toURI().toString());
-	    	     ProfileImageView.setImage(image);
+	   	        if(selectedImage != null) {
+	   	        	try {
+						FileInputStream fileInputStream = new FileInputStream(selectedImage);
+						imageByte = new byte [(int) selectedImage.length()];
+						fileInputStream.read(imageByte);
+		   	        	profileimage = new Image(new ByteArrayInputStream(imageByte));
+		   	        	ProfileImageView.setImage(profileimage);
+		   	        	photoflag=true;
+					} catch (FileNotFoundException e1) {
+						
+						e1.printStackTrace();
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+	   	        	
+	   	        }
 	    		
 	    		
 	    	});
 	     
 	   	RegisterBtn.setOnAction((e)->{
-	   		/*String phoneNumber,
-            String name, 
-            Country country,
-            String password, 
-            boolean changePasswordFlag,
-            UserStatus status,
-            byte[] picture,
-            String bio ,
-            char gender,
-            Date dateOfBirth,
-            String email 
-            */
-	    		
-	    	/*	try {
-	    				User user= new User(PhoneNumTxt.getText(), NameTxt.getText(),Country. , null, false, null, null, null, 0, null, null);
-	    		}*/
-	    		
-	    		    
-	    		
+	   		Name_lbl.setText("*");
+	   		Password_lbl.setText("*");
+	   		Country_lbl.setText("*");
+	   		Confirm_lbl.setText("*");
+	   		Phone_lbl.setText("*");
+	   		Email_lbl.setText("*");
+	   		Bio_lbl.setText("*");
+	   	/*	System.out.println("Name "+NameTxt.getText().isEmpty());  
+	   		System.out.println("password "+PassField.getText().isEmpty());
+	   		System.out.println("Phone "+PhoneNumTxt.getText().isEmpty());
+	   		System.out.println("confirm "+ConfrimPassField.getText().isEmpty());
+	   		System.out.println("country "+CountryComboBox.getSelectionModel().isEmpty());
+	   		System.out.println("bio "+BioTxtArea.getText().isEmpty());
+	   		System.out.println("birth "+(BirthdateCalender.getValue()==null));
+	   		//System.out.println("gender "+(Gender.getSelectedToggle()==null));
+	   		System.out.println("enmail "+EmailTxt.getText().isEmpty());*/
+	   		if(!(ConfrimPassField.getText().isEmpty()) &&!(NameTxt.getText().isEmpty()) && photoflag==true  && !(PassField.getText().isEmpty()) && !(PhoneNumTxt.getText().isEmpty()) && !(CountryComboBox.getSelectionModel().isEmpty()) && !(BioTxtArea.getText().isEmpty()) && !(BirthdateCalender.getValue()==null) && !(Gender.getSelectedToggle()==null) && !(EmailTxt.getText().isEmpty()))
+	   		{
+	   		
+	   	
+	   		LocalDate localDate = BirthdateCalender.getValue();
+	   		Instant instant = Instant.from(localDate.atStartOfDay(ZoneId.systemDefault()));
+	   		java.sql.Date sqlDate = new java.sql.Date(Date.from(instant).getTime());
+	      
+	      try {
+
+	 	    	/*ByteArrayOutputStream bos = new ByteArrayOutputStream();
+	 	    	BufferedImage bImage= ImageIO.read(profileimage);
+	 	        ImageIO.write(profileimage, "jpg", bos );
+	 	        byte [] data = bos.toByteArray();*/
+	    	  char gender;
+	    	  	if(Gender.getSelectedToggle().toString().equals("Male"))
+	    	  	{
+	    	  		gender='M';
+	    	  	}
+	    	  	else
+	    	  	{
+	    	  		gender='F';
+	    	  	}
+	 	        
+		     	User user= new User(PhoneNumTxt.getText(),
+				NameTxt.getText(),
+				Country.valueOf(CountryComboBox.getValue().toString()),
+				PassField.getText(),
+				true,
+				UserStatus.AVAILABLE,
+				imageByte,
+				BioTxtArea.getText(),
+				gender,
+				sqlDate,
+				EmailTxt.getText());
+		     	
+		     	IntroduceUserInt introduceUser = (IntroduceUserInt)ServiceLocator.getInstance().getService("introduce");
+		     	introduceUser.register(user);
+		     	
+		     		
+		     	
+		} catch (InvalidInputException e1) {
+			Alert alert = new Alert((javafx.scene.control.Alert.AlertType) AlertType.ERROR);
+	        alert.setTitle("Register Error");
+	        alert.setHeaderText("Results:");
+	        alert.setContentText(e1.getMessage());
+	 
+	        alert.showAndWait();
+		} catch (IOException e1) {
+			
+			e1.printStackTrace();
+		} catch (NoSuchUserException e1) {
+			    Alert alert = new Alert((javafx.scene.control.Alert.AlertType) AlertType.ERROR);
+		        alert.setTitle("Register Error");
+		        alert.setHeaderText("Results:");
+		        alert.setContentText("This User is already defined");
+		 
+		        alert.showAndWait();
+		}    
+	   		}
+	   		else {
+	   		
+	   			if(NameTxt.getText().isEmpty())
+	   			{
+	   				Name_lbl.setText("Name Must be Specifed");
+	   				
+	   			}
+	   			if(PhoneNumTxt.getText().isEmpty())
+	   			{
+	   				Phone_lbl.setText("PhoneNumber Must be Specifed");
+	   			}
+	   			if(PassField.getText().isEmpty())
+	   			{
+	   				Password_lbl.setText("Password Must be Specifed");
+	   			}
+	   			if(ConfrimPassField.getText().isEmpty())
+	   			{
+	   				Confirm_lbl.setText("ConfirmPassword Must be Specifed");
+	   			}
+	   			if(EmailTxt.getText().isEmpty())
+	   			{
+	   				Email_lbl.setText("Email Must be Specifed");
+	   			}
+	   			if(BioTxtArea.getText().isEmpty())
+	   			{
+	   				Bio_lbl.setText("BioInformation Must be Specifed");
+	   			}
+	   	    	
+	   			if(CountryComboBox.getSelectionModel().isEmpty())
+	   			{
+	   				Country_lbl.setText("Country Must be Specifed");
+	   			}
+	   		}
 	    	});
 
 	    }
+		
 }

@@ -1,3 +1,4 @@
+
 package com.jets.network.server.service;
 
 import java.io.FileReader;
@@ -86,7 +87,7 @@ public class ServiceFactory {
 				ex.printStackTrace();
 			}
     	}
-    	serviceMap = new HashMap<>();
+    	serviceMap.clear();
     }
     
     public Map<String,Remote> getServices() {

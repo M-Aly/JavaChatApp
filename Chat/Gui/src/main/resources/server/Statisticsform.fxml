@@ -18,12 +18,12 @@
             <Font name="System Bold" size="16.0" />
          </font>
       </Label>
-      <Label layoutX="92.0" layoutY="143.0" text="Female">
+      <Label layoutX="92.0" layoutY="143.0" text="Male">
          <font>
             <Font name="System Bold" size="16.0" />
          </font>
       </Label>
-      <Label layoutX="92.0" layoutY="188.0" text="Male">
+      <Label layoutX="92.0" layoutY="188.0" text="Female">
          <font>
             <Font name="System Bold" size="16.0" />
          </font>

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.jets.gui.controller.client;
+package com.jets.gui.controller.server;
 
 
 import java.awt.image.RenderedImage;
