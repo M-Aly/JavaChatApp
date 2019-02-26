@@ -27,7 +27,7 @@ public class ServerController  implements Initializable{
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		
+		announcmentServer();
 	}
 
 
@@ -64,9 +64,9 @@ public void announcmentServer()
 		Parent loader;
 		try {
 			
-			AddAnnouncmentController controller = new AddAnnouncmentController();
+			PushingAnnouncementController controller = new PushingAnnouncementController();
 			serverLoader.setController(controller);
-			loader = serverLoader.load(getClass().getResource("/server/addAnnoncment.fxml").openStream());
+			loader = serverLoader.load(getClass().getResource("/server/announceGui.fxml").openStream());
 			Stage newStage = new Stage();
 			newStage.setScene(new Scene(loader));
 			newStage.setMinWidth(700);
@@ -76,7 +76,6 @@ public void announcmentServer()
 		} catch (IOException ex) {
 			ex.printStackTrace();
 		}
-		
 		
 		}
 	);
@@ -89,9 +88,9 @@ public void AddUser()
 		Parent loader;
 		try {
 			
-			AddUserController controller = new AddUserController();
+			RegisterServerController controller = new RegisterServerController();
 			serverLoader.setController(controller);
-			loader = serverLoader.load(getClass().getResource("/server/AddUser.fxml").openStream());
+			loader = serverLoader.load(getClass().getResource("/server/Register.fxml").openStream());
 			Stage newStage = new Stage();
 			newStage.setScene(new Scene(loader));
 			newStage.setMinWidth(700);

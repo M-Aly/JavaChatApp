@@ -63,7 +63,7 @@ public class Statistics implements StatisticsInt{
 			users = dao.retrieveAllUsers();
 			for(int i=0 ;i<users.size() ; i++)
 			{
-				if(users.get(i).getGender()=='m')
+				if((users.get(i).getGender()=='m')||(users.get(i).getGender()=='M'))
 				{
 					numOfMaleUsers++;
 				}
@@ -81,7 +81,7 @@ public class Statistics implements StatisticsInt{
 			users = dao.retrieveAllUsers();
 			for(int i=0 ;i<users.size() ; i++)
 			{
-				if(users.get(i).getGender()=='f')
+				if((users.get(i).getGender()=='f')||(users.get(i).getGender()=='F'))
 				{
 					numOfFemaleUsers++;
 				}

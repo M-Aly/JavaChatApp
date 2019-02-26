@@ -8,6 +8,8 @@ import javafx.scene.control.Button;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import com.jets.network.server.service.ServiceFactory;
+
 import javafx.fxml.Initializable;
 
 public class ServerManagementController implements Initializable {
@@ -20,22 +22,36 @@ public class ServerManagementController implements Initializable {
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		// TODO Auto-generated method stub
 		
+		startButton.setDisable(false);
+		stopButton.setDisable(true);
+		
 	}
+	
+	boolean startFlag=  true;
+	boolean stopFlag =  true;
+	
+	
 	@FXML
 	public void startServer()
 	{
-		startButton.setOnMouseClicked((event) -> {
+		
 			
 			
-		});
+				stopButton.setDisable(false);
+				startButton.setDisable(true);
+					ServiceFactory.getInstance().startServices();
+				
+			
+		
 	}
 	@FXML
 	public void stopServer()
 	{
-		stopButton.setOnMouseClicked((event) -> {
-			
-			
-		});
+		
+		startButton.setDisable(false);
+		stopButton.setDisable(true);
+			ServiceFactory.getInstance().stopServices();
+		
 	}
 
 }

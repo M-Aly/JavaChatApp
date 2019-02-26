@@ -20,7 +20,7 @@ public class ConnectionMySql implements IDatabaseConnection {
     private static final String DATABASE="DATABASE_NAME";
     private static final String USER="USER_NAME";
     private static final String PASSWORD="PASSWORD";
-    private static final String FILE="/mysql.properties";
+    private static final String FILE="C:/mysql.properties";
     
     private ConnectionMySql(){
     	try {

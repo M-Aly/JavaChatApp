@@ -32,7 +32,7 @@ public class Announcement  extends UnicastRemoteObject implements AnnouncementsI
 	public void observe(AnnouncementReceiverInt announcementReceiver) throws RemoteException, NoSuchUserException {
 		
 		users.add(announcementReceiver);
-		
+	 	
 	}
 
 	@Override

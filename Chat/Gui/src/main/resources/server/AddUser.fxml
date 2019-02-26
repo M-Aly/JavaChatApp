@@ -46,9 +46,7 @@
       <HBox maxWidth="10000.0" minWidth="500.0" onMouseClicked="#addUserPhone" prefHeight="135.0" prefWidth="665.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
          <children>
             <ImageView fitHeight="50.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@addPerson.png" />
-               </image>
+               
             </ImageView>
             <Label maxWidth="300.0" minWidth="50.0" prefWidth="200.0" text="User Phone :">
                <padding>
